@@ -236,6 +236,25 @@
   .tl-msg{font-size:12.5px;color:var(--muted);margin-top:2px}
   .tl-ans{font-size:12.5px;color:var(--ink);margin-top:4px;background:var(--surface-2);border-radius:8px;padding:6px 9px}
   @media(max-width:600px){.fstep{width:52px}.fname{font-size:9.5px}}
+  /* CRM shell: toolbar, filters, chips */
+  .nav-label .lbl-tag{font-size:9px;font-weight:800;letter-spacing:.04em;color:var(--accent-strong);background:var(--accent-soft);padding:1px 5px;border-radius:5px;margin-left:6px;text-transform:none}
+  .crm-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 22px 12px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:5}
+  .crm-tabs{align-self:center}
+  .crm-filters{display:flex;gap:12px}
+  .crm-field{display:flex;flex-direction:column;gap:4px}
+  .crm-flabel{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding-left:2px}
+  .crm-sel{appearance:none;background:var(--surface) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A949E' stroke-width='2.5' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>") no-repeat right 9px center;border:1px solid var(--border-strong);border-radius:9px;padding:7px 28px 7px 11px;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}
+  .crm-sel:focus{outline:none;border-color:var(--accent)}
+  .crm-body{min-height:calc(100% - 60px)}
+  .cl-chip{font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;white-space:nowrap}
+  .dup-badge{font-size:10px;font-weight:800;color:var(--pri-med);background:var(--pri-med-soft);padding:2px 6px;border-radius:5px;margin-left:7px;white-space:nowrap}
+  .dup-note{font-size:12.5px;font-weight:600;color:var(--pri-med);background:var(--pri-med-soft);border-radius:10px;padding:9px 12px;line-height:1.4}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .empty{color:var(--faint);font-size:13px;padding:14px 6px}
+  .funnel-bars{display:flex;flex-direction:column;gap:9px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .fb-row{display:grid;grid-template-columns:104px 1fr 34px;align-items:center;gap:12px}
+  .fb-label{font-size:12.5px;font-weight:700;color:var(--muted)}
+  .fb-n{font-size:13px;font-weight:800;text-align:right}
 
   /* ---------- Drawer ---------- */
   .scrim{position:fixed;inset:0;background:rgba(10,20,16,.42);opacity:0;pointer-events:none;transition:.2s;z-index:40}
@@ -281,12 +300,14 @@
     <nav class="nav" id="nav">
       <a data-view="mytasks" class="active"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>My Tasks</a>
       <a data-view="inbox"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13l3.5 7v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6l3.5-7Z"/></svg>Inbox<span class="count">3</span></a>
-      <div class="nav-label">Outreach CRM</div>
-      <a data-view="pipeline"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h7v12H3zM14 6h7v7h-7z"/><path d="M10 10h4"/></svg>Pipeline</a>
-      <a data-view="leads"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg>Leads</a>
-      <a data-view="mqls"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 3 14 8l5.5.8-4 3.9.9 5.5-4.9-2.6L6.6 21l.9-5.5-4-3.9L9 8z"/></svg>MQLs<span class="count" id="mqlCount"></span></a>
-      <a data-view="stats"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></svg>Stats</a>
-      <div class="nav-label">Projects</div>
+      <div class="nav-label">All CRM <span class="lbl-tag">Admin</span></div>
+      <a data-crm="pipeline"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h7v12H3zM14 6h7v7h-7z"/><path d="M10 10h4"/></svg>Pipeline</a>
+      <a data-crm="leads"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg>Leads</a>
+      <a data-crm="mqls"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 3 14 8l5.5.8-4 3.9.9 5.5-4.9-2.6L6.6 21l.9-5.5-4-3.9L9 8z"/></svg>MQLs<span class="count" id="mqlCount"></span></a>
+      <a data-crm="stats"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></svg>Stats</a>
+      <div class="nav-label">Clients</div>
+      <div id="clientnav"></div>
+      <div class="nav-label">Internal projects</div>
       <div id="projnav"></div>
     </nav>
     <div class="side-foot">
@@ -367,44 +388,65 @@ const leadStages=[
   {id:"mql",          name:"MQL",          color:"#4F8F5B"},
 ];
 const lgStatus={request_sent:"Request sent","2nd_sent":"2nd sent",accepted:"Accepted",withdraw:"Withdraw",not_ta:"Not TA",unsubscribe:"Unsubscribe"};
-const campaign = "outreach"; // leads belong to the Q4 Outreach Campaign project
+// The agency runs LinkedIn outreach FOR clients. Each client = a project with its own CRM.
+const clients=[
+  {id:"northwind", name:"Northwind Capital", short:"Northwind", color:"#4F8F5B", industry:"Fintech / VC"},
+  {id:"payflow",   name:"Payflow",           short:"Payflow",   color:"#6F5A96", industry:"Payments"},
+  {id:"kvitly",    name:"Kvitly HR",         short:"Kvitly",    color:"#3E8F95", industry:"HR SaaS"},
+];
+const client=id=>clients.find(c=>c.id===id);
+// Ambassadors = the client-owned LinkedIn profiles we operate. A client can run several.
+const ambassadors=[
+  {id:"nw_jw", client:"northwind", name:"James Whitmore", role:"Managing Partner", init:"JW"},
+  {id:"nw_er", client:"northwind", name:"Elena Ross",     role:"VP Investments",   init:"ER"},
+  {id:"pf_mn", client:"payflow",   name:"Marek Nowak",    role:"Head of Sales",    init:"MN"},
+  {id:"pf_iv", client:"payflow",   name:"Iryna Volk",     role:"BD Lead",          init:"IV"},
+  {id:"kv_oh", client:"kvitly",    name:"Olha Hnatiuk",   role:"Founder",          init:"OH"},
+];
+const amb=id=>ambassadors.find(a=>a.id===id);
 let leads=[
-  {id:"L1", name:"Ivan Melnyk", title:"Head of Growth", company:"FinScale", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
+  {id:"L1", client:"northwind", ambassador:"nw_jw", name:"Ivan Melnyk", title:"Head of Growth", company:"FinScale", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
     stage:"connecting", statusLG:"request_sent", deal:"open", dates:{}, next:{date:"2026-09-27",task:"Withdraw check"}, strategy:"General ICP pains", touches:[], comment:"Request pending 3 days."},
-  {id:"L2", name:"Oksana Bondar", title:"HR Manager", company:"PayLink", loc:"Lviv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"maria",
+  {id:"L2", client:"payflow", ambassador:"pf_mn", name:"Oksana Bondar", title:"HR Manager", company:"PayLink", loc:"Lviv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"maria",
     stage:"connecting", statusLG:"2nd_sent", deal:"open", dates:{}, next:{date:"2026-09-24",task:"Connection request"}, strategy:"General ICP pains", touches:[], comment:"Re-sent after withdraw."},
-  {id:"L3", name:"Petro Kovalenko", title:"Talent Lead", company:"NovaBank", loc:"Kyiv, UA", industry:"Banking", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
+  {id:"L3", client:"kvitly", ambassador:"kv_oh", name:"Petro Kovalenko", title:"Talent Lead", company:"NovaBank", loc:"Kyiv, UA", industry:"Banking", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
     stage:"awareness", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-18"}, next:{date:"2026-09-22",task:"First message"}, strategy:"Conference warm-up", touches:[], comment:""},
-  {id:"L4", name:"Anna Shevchenko", title:"Head of People", company:"Kvitly", loc:"Kyiv, UA", industry:"SaaS", source:"LinkedIn", channel:"LinkedIn", owner:"alex",
+  {id:"L4", client:"kvitly", ambassador:"kv_oh", name:"Anna Shevchenko", title:"Head of People", company:"Kvitly Corp", loc:"Kyiv, UA", industry:"SaaS", source:"LinkedIn", channel:"LinkedIn", owner:"alex",
     stage:"awareness", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-20"}, next:{date:"2026-09-21",task:"First message"}, strategy:"General ICP pains", touches:[], comment:"Accepted fast — active poster."},
-  {id:"L5", name:"Dmytro Tkachenko", title:"COO", company:"LedgerPay", loc:"Warsaw, PL", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
+  {id:"L5", client:"northwind", ambassador:"nw_er", name:"Dmytro Tkachenko", title:"COO", company:"LedgerPay", loc:"Warsaw, PL", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
     stage:"engagement", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-16",engage:"2026-09-19"}, next:{date:"2026-09-22",task:"Ping"}, strategy:"Conference warm-up",
     touches:[{date:"2026-09-17",task:"First message",msg:"Conference intro",answer:"Thanks, will check the agenda"},{date:"2026-09-19",task:"Comment",msg:"Reacted to their post",answer:"👍"}], comment:""},
-  {id:"L6", name:"Sofia Marchenko", title:"HR Director", company:"Streamline", loc:"Kyiv, UA", industry:"SaaS", source:"Conference app", channel:"Event app", owner:"maria",
+  {id:"L6", client:"payflow", ambassador:"pf_iv", name:"Sofia Marchenko", title:"HR Director", company:"Streamline", loc:"Kyiv, UA", industry:"SaaS", source:"Conference app", channel:"Event app", owner:"maria",
     stage:"engagement", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-14",engage:"2026-09-17"}, next:{date:"2026-09-24",task:"2nd message"}, strategy:"Event follow-up",
     touches:[{date:"2026-09-16",task:"First message",msg:"Event follow-up",answer:"Let's talk after the event"}], comment:""},
-  {id:"L7", name:"Andriy Lysenko", title:"VP Sales", company:"Corda", loc:"Remote, EU", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"alex",
+  {id:"L7", client:"northwind", ambassador:"nw_jw", name:"Andriy Lysenko", title:"VP Sales", company:"Corda", loc:"Remote, EU", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"alex",
     stage:"qualification", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-12",engage:"2026-09-15",qual:"2026-09-16"}, next:{date:"2026-09-22",task:"Share case study"}, strategy:"Pain: no lead-status system",
     touches:[{date:"2026-09-13",task:"First message",msg:"ICP pains",answer:"We track leads in spreadsheets, it's messy"},{date:"2026-09-15",task:"Ping",msg:"Follow-up question",answer:"Yes, open to ideas"}], comment:"Clear pain — no CRM in place."},
-  {id:"L8", name:"Yulia Romanenko", title:"Head of Ops", company:"FlowFin", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
+  {id:"L8", client:"payflow", ambassador:"pf_mn", name:"Yulia Romanenko", title:"Head of Ops", company:"FlowFin", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
     stage:"qualification", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-13",engage:"2026-09-16",qual:"2026-09-18"}, next:{date:"2026-09-23",task:"Ping"}, strategy:"Pain: manual reporting",
     touches:[{date:"2026-09-14",task:"First message",msg:"ICP pains",answer:"Reporting eats our week"}], comment:""},
-  {id:"L9", name:"Maksym Ivanov", title:"CEO", company:"Trinket", loc:"Tallinn, EE", industry:"SaaS", source:"LinkedIn", channel:"LinkedIn", owner:"alex",
+  {id:"L9", client:"northwind", ambassador:"nw_er", name:"Maksym Ivanov", title:"CEO", company:"Trinket", loc:"Tallinn, EE", industry:"SaaS", source:"LinkedIn", channel:"LinkedIn", owner:"alex",
     stage:"interest", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-11",engage:"2026-09-13",qual:"2026-09-14",interest:"2026-09-15"}, next:{date:"2026-09-22",task:"Book call"}, strategy:"Direct solution fit",
     touches:[{date:"2026-09-12",task:"First message",msg:"ICP pains",answer:"How does your pricing work?"},{date:"2026-09-15",task:"Reply",msg:"Sent pricing + case",answer:"Looks interesting, let's chat"}], comment:"Asked about pricing — hot."},
-  {id:"L10", name:"Kateryna Boyko", title:"Founder", company:"Payila", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"Telegram", owner:"maria",
+  {id:"L10", client:"payflow", ambassador:"pf_iv", name:"Kateryna Boyko", title:"Founder", company:"Payila", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"Telegram", owner:"maria",
     stage:"interest", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-15",engage:"2026-09-17",qual:"2026-09-18",interest:"2026-09-19"}, next:{date:"2026-09-25",task:"Send calendar"}, strategy:"Direct solution fit",
     touches:[{date:"2026-09-18",task:"First message",msg:"ICP pains",answer:"Send me a calendar link"}], comment:"Moved to Telegram."},
-  {id:"L11", name:"Roman Danylenko", title:"Head of Growth", company:"Monobyte", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
+  {id:"L11", client:"northwind", ambassador:"nw_jw", name:"Roman Danylenko", title:"Head of Growth", company:"Monobyte", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
     stage:"mql", statusLG:"accepted", deal:"won", dates:{aware:"2026-09-08",engage:"2026-09-11",qual:"2026-09-14",interest:"2026-09-17",mql:"2026-09-20"}, next:{date:"",task:""}, strategy:"Direct solution fit",
     touches:[], comment:"", details:"Intro call booked with client's sales team for Sep 24. Warm — wants a pilot."},
-  {id:"L12", name:"Nataliya Kravets", title:"CMO", company:"Zoria", loc:"Warsaw, PL", industry:"SaaS", source:"Conference app", channel:"Event app", owner:"alex",
+  {id:"L12", client:"kvitly", ambassador:"kv_oh", name:"Nataliya Kravets", title:"CMO", company:"Zoria", loc:"Warsaw, PL", industry:"SaaS", source:"Conference app", channel:"Event app", owner:"alex",
     stage:"mql", statusLG:"accepted", deal:"won", dates:{aware:"2026-09-05",engage:"2026-09-09",qual:"2026-09-12",interest:"2026-09-15",mql:"2026-09-16"}, next:{date:"",task:""}, strategy:"Event follow-up",
     touches:[], comment:"", details:"Handed to client sales manager. Demo done, evaluating."},
-  {id:"L13", name:"Oleh Symonenko", title:"HR Manager", company:"GrayFin", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"maria",
+  {id:"L13", client:"payflow", ambassador:"pf_mn", name:"Oleh Symonenko", title:"HR Manager", company:"GrayFin", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"maria",
     stage:"engagement", statusLG:"accepted", deal:"lost", dates:{aware:"2026-09-10",engage:"2026-09-13"}, next:{date:"",task:""}, strategy:"General ICP pains",
     touches:[{date:"2026-09-12",task:"First message",msg:"ICP pains",answer:"No budget this year"}], comment:"", lost:"No budget / timing"},
+  {id:"L14", client:"payflow", ambassador:"pf_iv", name:"Andriy Lysenko", title:"VP Sales", company:"Corda", loc:"Remote, EU", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"maria",
+    stage:"awareness", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-21"}, next:{date:"2026-09-23",task:"First message"}, strategy:"Payments ICP pains", touches:[], comment:"Same person is also an active Northwind lead — coordinate messaging."},
+  {id:"L15", client:"kvitly", ambassador:"kv_oh", name:"Maksym Ivanov", title:"CEO", company:"Trinket", loc:"Tallinn, EE", industry:"SaaS", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
+    stage:"connecting", statusLG:"request_sent", deal:"open", dates:{}, next:{date:"2026-09-26",task:"Withdraw check"}, strategy:"HR SaaS angle", touches:[], comment:"Also an open lead under Northwind."},
 ];
+// Same person appearing under other clients (leads are project-scoped, not globally unique)
+const dupOf=l=>leads.filter(x=>x.id!==l.id&&x.name===l.name).map(x=>client(x.client).short);
 // Daily plan-vs-fact targets (Statistics tab)
 const stats={
   ambassador:"karina",
@@ -428,7 +470,7 @@ const stats={
   ],
 };
 
-const state = {view:"mytasks", layout:"board", selected:null, selectedLead:null, composeFor:null};
+const state = {view:"mytasks", layout:"board", selected:null, selectedLead:null, composeFor:null, crmScope:"all", crmTab:"pipeline", crmAmb:"all"};
 
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
@@ -457,15 +499,30 @@ function subCount(t){if(!t.subs.length)return"";const d=t.subs.filter(s=>s.done)
 
 /* ---------- sidebar projects ---------- */
 function renderNav(){
+  // Clients (each has its own CRM)
+  const cn=$("#clientnav");cn.innerHTML="";
+  clients.forEach(cl=>{
+    const active=leads.filter(l=>l.client===cl.id&&l.deal==="open"&&l.stage!=="mql").length;
+    const on=state.view==="crm"&&state.crmScope===cl.id;
+    const a=el("a",on?"active":"",`<span class="proj-dot" style="background:${cl.color}"></span>${cl.name}<span class="count">${active}</span>`);
+    a.onclick=()=>goCRM(cl.id,"pipeline");cn.appendChild(a);
+  });
+  // Internal projects (tasks only)
   const pn=$("#projnav");pn.innerHTML="";
   projects.forEach(p=>{
     const open=tasks.filter(t=>t.project===p.id&&t.section!=="done").length;
     const a=el("a",state.view===p.id?"active":"",`<span class="proj-dot" style="background:${p.color}"></span>${p.name}<span class="count">${open}</span>`);
     a.dataset.view=p.id;a.onclick=()=>go(p.id);pn.appendChild(a);
   });
-  document.querySelectorAll('#nav>a').forEach(a=>{
+  // Top links (My Tasks / Inbox)
+  document.querySelectorAll('#nav>a[data-view]').forEach(a=>{
     a.classList.toggle("active",a.dataset.view===state.view);
     a.onclick=()=>go(a.dataset.view);
+  });
+  // Admin CRM tabs (union across all clients)
+  document.querySelectorAll('#nav>a[data-crm]').forEach(a=>{
+    a.classList.toggle("active",state.view==="crm"&&state.crmScope==="all"&&state.crmTab===a.dataset.crm);
+    a.onclick=()=>goCRM("all",a.dataset.crm);
   });
   const mc=$("#mqlCount");if(mc)mc.textContent=leads.filter(l=>l.stage==="mql").length;
 }
@@ -477,17 +534,21 @@ function go(view){
   const isProj = !!proj(view);
   $("#seg").hidden = !isProj;
   const t=$("#viewTitle"), sub=$("#viewSub"), pd=$("#pdot");
-  const activeLeads=leads.filter(l=>l.deal!=="lost"&&l.stage!=="mql");
-  const simple={
-    mytasks:["My Tasks",""], inbox:["Inbox",""],
-    pipeline:["Pipeline", activeLeads.length+" active leads"],
-    leads:["Leads", leads.length+" total"],
-    mqls:["MQLs", leads.filter(l=>l.stage==="mql").length+" handed off"],
-    stats:["Outreach Stats","September 2026 · plan vs fact"],
-  };
+  const simple={ mytasks:["My Tasks",""], inbox:["Inbox",""] };
   if(simple[view]){t.textContent=simple[view][0];sub.textContent=simple[view][1];pd.style.display="none";}
   else{const p=proj(view);t.textContent=p.name;pd.style.display="";pd.style.background=p.color;
        const open=tasks.filter(x=>x.project===p.id&&x.section!=="done").length;sub.textContent=open+" open";}
+  renderNav();render();
+  $("#content").scrollTop=0;
+}
+// CRM routing: scope = "all" (admin, union) or a client id; tab = pipeline/leads/mqls/stats
+function goCRM(scope, tab){
+  state.view="crm";state.crmScope=scope;state.crmTab=tab;state.crmAmb="all";state.composeFor=null;
+  $("#sidebar").classList.remove("open");
+  $("#seg").hidden=true;
+  const t=$("#viewTitle"),sub=$("#viewSub"),pd=$("#pdot");
+  if(scope==="all"){t.textContent="All CRM";pd.style.display="none";sub.textContent="Admin · every client";}
+  else{const cl=client(scope);t.textContent=cl.name;pd.style.display="";pd.style.background=cl.color;sub.textContent=cl.industry+" · client CRM";}
   renderNav();render();
   $("#content").scrollTop=0;
 }
@@ -497,10 +558,7 @@ function render(){
   const c=$("#content");c.innerHTML="";
   if(state.view==="mytasks") return renderMyTasks(c);
   if(state.view==="inbox")   return renderInbox(c);
-  if(state.view==="pipeline")return renderPipeline(c);
-  if(state.view==="leads")   return renderLeads(c);
-  if(state.view==="mqls")    return renderMQLs(c);
-  if(state.view==="stats")   return renderStats(c);
+  if(state.view==="crm")     return renderCRM(c);
   if(state.layout==="board") return renderBoard(c);
   return renderList(c);
 }
@@ -549,7 +607,7 @@ function leadRow(item){
   r.innerHTML=`<span class="chk">${CHECK}</span>
     <span class="rtitle">${item.title} · <span style="color:var(--muted);font-weight:600">${l.name}</span></span>
     <span class="rmeta">
-      <span class="tag-crm">${OUTREACH_ICO}Outreach</span>
+      <span class="tag-crm">${OUTREACH_ICO}${client(l.client).short}</span>
       <span class="stage-pill" style="color:${s.color};background:${s.color}22">${s.name}</span>
       ${item.due?`<span class="due ${isOver(item.due)?"over":""}">${CAL}${fmtDue(item.due)}</span>`:""}
     </span>`;
@@ -573,32 +631,72 @@ function advanceNext(l){
   if(state.selectedLead===l.id) openLead(l.id);
 }
 
+/* ---- CRM shell: toolbar (tabs + filters) over a scoped body ---- */
+function scopedLeads(){
+  return leads.filter(l=>(state.crmScope==="all"||l.client===state.crmScope)&&(state.crmAmb==="all"||l.ambassador===state.crmAmb));
+}
+function renderCRM(c){
+  c.appendChild(crmToolbar());
+  const body=el("div","crm-body");
+  const scoped=scopedLeads();
+  if(state.crmTab==="pipeline") pipelineBody(body,scoped);
+  else if(state.crmTab==="leads") leadsBody(body,scoped);
+  else if(state.crmTab==="mqls") mqlsBody(body,scoped);
+  else statsBody(body,scoped);
+  c.appendChild(body);
+}
+function crmToolbar(){
+  const bar=el("div","crm-bar");
+  const tabs=el("div","seg crm-tabs");
+  [["pipeline","Pipeline"],["leads","Leads"],["mqls","MQLs"],["stats","Stats"]].forEach(([id,label])=>{
+    const b=el("button",state.crmTab===id?"on":"",label);
+    b.onclick=()=>{state.crmTab=id;render();};tabs.appendChild(b);
+  });
+  bar.appendChild(tabs);
+  const filt=el("div","crm-filters");
+  const cSel=el("select","crm-sel");
+  cSel.innerHTML=`<option value="all">All clients</option>`+clients.map(cl=>`<option value="${cl.id}" ${state.crmScope===cl.id?"selected":""}>${cl.name}</option>`).join("");
+  cSel.onchange=()=>goCRM(cSel.value,state.crmTab);
+  const ambs=ambassadors.filter(a=>state.crmScope==="all"||a.client===state.crmScope);
+  const aSel=el("select","crm-sel");
+  aSel.innerHTML=`<option value="all">All profiles</option>`+ambs.map(a=>`<option value="${a.id}" ${state.crmAmb===a.id?"selected":""}>${a.name}</option>`).join("");
+  aSel.onchange=()=>{state.crmAmb=aSel.value;render();};
+  filt.appendChild(fieldWrap("Client",cSel));
+  filt.appendChild(fieldWrap("Profile",aSel));
+  bar.appendChild(filt);
+  return bar;
+}
+function fieldWrap(lbl,node){const w=el("label","crm-field");w.appendChild(el("span","crm-flabel",lbl));w.appendChild(node);return w;}
+function clChip(id){const cl=client(id);return `<span class="cl-chip" style="color:${cl.color};background:${cl.color}22">${cl.short}</span>`;}
+function dupBadge(l){const d=dupOf(l);return d.length?`<span class="dup-badge" title="Same person is also a lead under ${d.join(', ')}">⚑ dup</span>`:"";}
+
 /* ---- Pipeline (funnel board) ---- */
-function renderPipeline(c){
+function pipelineBody(c,scoped){
   const board=el("div","board");
   leadStages.forEach(s=>{
-    const items=leads.filter(l=>l.stage===s.id&&l.deal!=="lost");
-    const col=el("div","col");col.dataset.stage=s.id;
+    const items=scoped.filter(l=>l.stage===s.id&&l.deal!=="lost");
+    const col=el("div","col");
     col.appendChild(el("div","col-head",`<span class="cdot" style="background:${s.color}"></span>${s.name}<span class="n">${items.length}</span>`));
-    const body=el("div","col-body");
-    items.forEach(l=>body.appendChild(leadCard(l)));
-    col.appendChild(body);
+    const bd=el("div","col-body");
+    items.forEach(l=>bd.appendChild(leadCard(l)));
+    col.appendChild(bd);
     col.ondragover=e=>{e.preventDefault();col.classList.add("drop");};
     col.ondragleave=()=>col.classList.remove("drop");
     col.ondrop=e=>{e.preventDefault();col.classList.remove("drop");const id=e.dataTransfer.getData("leadId");const l=leads.find(x=>x.id===id);
-      if(l){l.stage=s.id; l.dates[({connecting:"",awareness:"aware",engagement:"engage",qualification:"qual",interest:"interest",mql:"mql"})[s.id]]=fISO(TODAY);
+      if(l){l.stage=s.id; const dk={awareness:"aware",engagement:"engage",qualification:"qual",interest:"interest",mql:"mql"}[s.id]; if(dk)l.dates[dk]=fISO(TODAY);
         if(s.id==="mql")l.deal="won"; renderNav();render();}};
     board.appendChild(col);
   });
   c.appendChild(board);
 }
 function leadCard(l){
-  const s=leadStage(l.stage);
   const cd=el("div","card lead");cd.draggable=true;
+  const chips=(state.crmScope==="all"?clChip(l.client):"")+dupBadge(l);
   const nextBit=l.next&&l.next.task?`<span class="due ${isOver(l.next.date)?"over":""}">${CAL}${l.next.task} · ${fmtDue(l.next.date)}</span>`:`<span class="subc">${dealPill(l.deal)}</span>`;
-  cd.innerHTML=`<div class="ct"><span class="ava sm" style="background:${users[l.owner].color}">${users[l.owner].init}</span>
+  cd.innerHTML=`<div class="ct">${ava(l.owner,true)}
       <div><div class="ctitle">${l.name}</div><div class="lead-sub">${l.title} · ${l.company}</div></div></div>
-    <div class="meta">${nextBit}<span class="spacer"></span>${l.answer?`<span class="subc">${OUTREACH_ICO}</span>`:""}</div>`;
+    ${chips?`<div class="chips">${chips}</div>`:""}
+    <div class="meta">${nextBit}<span class="spacer"></span></div>`;
   cd.querySelector(".ctitle").onclick=()=>openLead(l.id);
   cd.ondragstart=e=>{e.dataTransfer.setData("leadId",l.id);cd.classList.add("dragging");};
   cd.ondragend=()=>cd.classList.remove("dragging");
@@ -607,70 +705,83 @@ function leadCard(l){
 }
 
 /* ---- Leads (DB table) ---- */
-function renderLeads(c){
+function leadsBody(c,scoped){
+  const admin=state.crmScope==="all";
   const wrap=el("div","leads-wrap");
   const tbl=el("table","lead-table");
   tbl.innerHTML=`<thead><tr>
-    <th>Name</th><th>Title</th><th>Company</th><th>Stage</th><th>Status</th><th>Owner</th><th>Next action</th><th>Deal</th></tr></thead>`;
+    <th>Name</th>${admin?"<th>Client</th>":""}<th>Profile</th><th>Title</th><th>Company</th><th>Stage</th><th>Owner</th><th>Next action</th><th>Deal</th></tr></thead>`;
   const tb=el("tbody");
-  leads.forEach(l=>{
-    const s=leadStage(l.stage);
+  scoped.forEach(l=>{
+    const s=leadStage(l.stage), a=amb(l.ambassador);
     const tr=el("tr");
-    tr.innerHTML=`<td class="ln"><span class="ava sm" style="background:${users[l.owner].color}">${users[l.owner].init}</span>${l.name}</td>
+    tr.innerHTML=`<td class="ln">${ava(l.owner,true)}${l.name}${dupBadge(l)}</td>
+      ${admin?`<td>${clChip(l.client)}</td>`:""}
+      <td class="muted">${a?a.name:"—"}</td>
       <td>${l.title}</td><td>${l.company}</td>
       <td><span class="stage-pill" style="color:${s.color};background:${s.color}22">${s.name}</span></td>
-      <td class="muted">${lgStatus[l.statusLG]||"—"}</td>
       <td>${users[l.owner].name.split(" ")[0]}</td>
       <td class="muted">${l.next&&l.next.task?`${l.next.task} · <span class="${isOver(l.next.date)&&l.deal==='open'?'ovr':''}">${fmtDate(l.next.date)}</span>`:"—"}</td>
       <td>${dealPill(l.deal)}</td>`;
-    tr.onclick=()=>openLead(l.id);
-    tb.appendChild(tr);
+    tr.onclick=()=>openLead(l.id);tb.appendChild(tr);
   });
-  tbl.appendChild(tb);
-  wrap.appendChild(tbl);
-  c.appendChild(wrap);
+  tbl.appendChild(tb);wrap.appendChild(tbl);c.appendChild(wrap);
 }
 
 /* ---- MQLs (handoff list) ---- */
-function renderMQLs(c){
+function mqlsBody(c,scoped){
   const wrap=el("div","mt");
-  const items=leads.filter(l=>l.stage==="mql");
+  const items=scoped.filter(l=>l.stage==="mql");
   wrap.appendChild(el("div","bucket-head",`<span class="flag" style="background:#4F8F5B"></span>Handed off to client<span class="n">${items.length}</span>`));
+  if(!items.length)wrap.appendChild(el("div","empty","No MQLs in this scope yet."));
   items.forEach(l=>{
     const r=el("div","row");
-    r.innerHTML=`<span class="ava" style="background:${users[l.owner].color}">${users[l.owner].init}</span>
+    r.innerHTML=`${ava(l.owner)}
       <span class="rtitle" style="font-weight:700">${l.name} <span style="color:var(--muted);font-weight:600">· ${l.title}, ${l.company}</span><div class="lead-sub">${l.details||""}</div></span>
-      <span class="rmeta"><span class="muted" style="font-size:12px">${users[l.owner].name.split(" ")[0]}</span><span class="due">${CAL}${fmtDate(l.dates.mql)}</span>${dealPill(l.deal)}</span>`;
-    r.onclick=()=>openLead(l.id);
-    wrap.appendChild(r);
+      <span class="rmeta">${clChip(l.client)}<span class="due">${CAL}${fmtDate(l.dates.mql)}</span>${dealPill(l.deal)}</span>`;
+    r.onclick=()=>openLead(l.id);wrap.appendChild(r);
   });
   c.appendChild(wrap);
 }
 
-/* ---- Stats (plan vs fact) ---- */
-function renderStats(c){
+/* ---- Stats (aggregate for admin, plan-vs-fact for a client) ---- */
+function statsBody(c,scoped){
   const wrap=el("div","stats-wrap");
-  // outreach KPI tiles
+  const active=scoped.filter(l=>l.deal==="open"&&l.stage!=="mql").length;
+  const mql=scoped.filter(l=>l.stage==="mql").length;
+  const lost=scoped.filter(l=>l.deal==="lost").length;
+  wrap.appendChild(el("div","stats-h",state.crmScope==="all"?"Agency totals — all clients":`${client(state.crmScope).name} — totals`));
   const kpis=el("div","kpi-row");
-  stats.outreach.forEach(k=>kpis.appendChild(el("div","kpi",`<div class="kv">${k.val}</div><div class="kl">${k.label}</div>`)));
-  wrap.appendChild(el("div","stats-h",`Outreach metrics <span class="muted">· ${users[stats.ambassador].name}</span>`));
+  [["Active leads",active],["MQLs",mql],["Lost",lost],["Reply rate","29.8%"],["Conn. growth","+318"]].forEach(([lbl,v])=>
+    kpis.appendChild(el("div","kpi",`<div class="kv">${v}</div><div class="kl">${lbl}</div>`)));
   wrap.appendChild(kpis);
-  wrap.appendChild(el("div","stats-h","Daily scope — plan vs fact"));
-  let lastGroup="";
-  const tbl=el("table","stat-table");
-  tbl.innerHTML=`<thead><tr><th>Metric</th><th>Plan</th><th>Fact</th><th style="width:38%">Progress</th></tr></thead>`;
-  const tb=el("tbody");
-  stats.rows.forEach(r=>{
-    if(r.group!==lastGroup){const g=el("tr","grp");g.innerHTML=`<td colspan="4">${r.group}</td>`;tb.appendChild(g);lastGroup=r.group;}
-    const pctv=r.plan>0?Math.min(100,Math.round(r.fact/r.plan*100)):0;
-    const good=r.label==="Withdrawn"?pctv<50:pctv>=70;
-    const tr=el("tr");
-    tr.innerHTML=`<td>${r.label}</td><td class="tnum">${r.plan}</td><td class="tnum">${r.fact}</td>
-      <td><div class="bar"><span style="width:${pctv}%;background:${good?'var(--accent)':'var(--pri-med)'}"></span></div></td>`;
-    tb.appendChild(tr);
-  });
-  tbl.appendChild(tb);wrap.appendChild(tbl);
-  wrap.appendChild(el("div","stats-note",`In Chameleon these fill automatically as leads move through the pipeline — no manual daily entry.`));
+  wrap.appendChild(el("div","stats-h","Pipeline by stage"));
+  const fb=el("div","funnel-bars");
+  const maxc=Math.max(1,...leadStages.map(s=>scoped.filter(l=>l.stage===s.id&&l.deal!=="lost").length));
+  leadStages.forEach(s=>{const n=scoped.filter(l=>l.stage===s.id&&l.deal!=="lost").length;
+    fb.appendChild(el("div","fb-row",`<span class="fb-label">${s.name}</span><div class="bar"><span style="width:${Math.round(n/maxc*100)}%;background:${s.color}"></span></div><span class="fb-n tnum">${n}</span>`));});
+  wrap.appendChild(fb);
+  if(state.crmScope==="all"){
+    wrap.appendChild(el("div","stats-h","By client"));
+    const tbl=el("table","stat-table");
+    tbl.innerHTML=`<thead><tr><th>Client</th><th>Active</th><th>MQLs</th><th>Lost</th></tr></thead>`;
+    const tb=el("tbody");
+    clients.forEach(cl=>{const cs=leads.filter(l=>l.client===cl.id);const tr=el("tr");
+      tr.innerHTML=`<td>${clChip(cl.id)}</td><td class="tnum">${cs.filter(l=>l.deal==="open"&&l.stage!=="mql").length}</td>
+        <td class="tnum">${cs.filter(l=>l.stage==="mql").length}</td><td class="tnum">${cs.filter(l=>l.deal==="lost").length}</td>`;
+      tr.style.cursor="pointer";tr.onclick=()=>goCRM(cl.id,"stats");tb.appendChild(tr);});
+    tbl.appendChild(tb);wrap.appendChild(tbl);
+  }else{
+    wrap.appendChild(el("div","stats-h","Daily scope — plan vs fact"));
+    let lastGroup="";const tbl=el("table","stat-table");
+    tbl.innerHTML=`<thead><tr><th>Metric</th><th>Plan</th><th>Fact</th><th style="width:34%">Progress</th></tr></thead>`;
+    const tb=el("tbody");
+    stats.rows.forEach(r=>{if(r.group!==lastGroup){const g=el("tr","grp");g.innerHTML=`<td colspan="4">${r.group}</td>`;tb.appendChild(g);lastGroup=r.group;}
+      const pctv=r.plan>0?Math.min(100,Math.round(r.fact/r.plan*100)):0;const good=r.label==="Withdrawn"?pctv<50:pctv>=70;
+      const tr=el("tr");tr.innerHTML=`<td>${r.label}</td><td class="tnum">${r.plan}</td><td class="tnum">${r.fact}</td><td><div class="bar"><span style="width:${pctv}%;background:${good?'var(--accent)':'var(--pri-med)'}"></span></div></td>`;tb.appendChild(tr);});
+    tbl.appendChild(tb);wrap.appendChild(tbl);
+  }
+  wrap.appendChild(el("div","stats-note","In Chameleon these fill automatically as leads move through the pipeline — no manual daily entry."));
   c.appendChild(wrap);
 }
 
@@ -707,6 +818,7 @@ function openLead(id){
         <div><div class="dr-title" style="font-size:19px">${l.name}</div><div class="lead-sub">${l.title} · ${l.company} · ${l.loc}</div></div>
         <a class="li-btn" title="LinkedIn">${LINK_ICO}</a>
       </div>
+      ${dupOf(l).length?`<div class="dup-note">⚑ Same person is also an active lead under <b>${dupOf(l).join(', ')}</b> — coordinate messaging so profiles don't collide.</div>`:""}
       ${l.next&&l.next.task?`<div class="next-box"><div><div class="nb-l">Next action</div><div class="nb-t">${l.next.task}</div></div>
         <div class="nb-r"><span class="due ${isOver(l.next.date)?'over':''}">${CAL}${fmtDue(l.next.date)}</span>
         <button class="nb-done" id="ldDone">${CHECK} Log &amp; advance</button></div></div>`:""}
@@ -715,7 +827,9 @@ function openLead(id){
         <div class="funnel">${funnel}</div>
       </div>
       <div class="fields">
-        <div class="field"><span class="k">Owner</span><span class="v"><span class="assignee-pill"><span class="ava sm" style="background:${users[l.owner].color}">${users[l.owner].init}</span>${users[l.owner].name}</span></span></div>
+        <div class="field"><span class="k">Client</span><span class="v">${clChip(l.client)} ${client(l.client).name}</span></div>
+        <div class="field"><span class="k">Profile</span><span class="v">${amb(l.ambassador)?amb(l.ambassador).name+" · "+amb(l.ambassador).role:"—"}</span></div>
+        <div class="field"><span class="k">Owner (SDR)</span><span class="v"><span class="assignee-pill"><span class="ava sm" style="background:${users[l.owner].color}">${users[l.owner].init}</span>${users[l.owner].name}</span></span></div>
         <div class="field"><span class="k">Source</span><span class="v">${l.source}</span></div>
         <div class="field"><span class="k">Channel</span><span class="v">${l.channel}</span></div>
         <div class="field"><span class="k">Industry</span><span class="v">${l.industry}</span></div>
