@@ -168,6 +168,52 @@
   .bucket-head .n{color:var(--faint);font-weight:700;font-size:12px}
   .mt .row .proj{font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px;color:#fff}
 
+  /* ---------- Plan (phased tree) ---------- */
+  .plan{padding:16px 22px 44px;max-width:1000px}
+  .gtask{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);margin-bottom:12px}
+  .gtask.done{border-color:var(--accent)}
+  .gt-ico{font-size:22px;line-height:1}
+  .gt-main{flex:1;min-width:0}
+  .gt-name{font-weight:800;font-size:15px}
+  .gt-bar{height:8px;background:var(--surface-3);border-radius:5px;margin-top:8px;overflow:hidden}
+  .gt-bar span{display:block;height:100%;background:var(--accent);border-radius:5px;transition:width .25s}
+  .gt-pct{font-weight:800;font-size:15px}
+  .gt-meta{font-size:12px;color:var(--faint);font-weight:600;white-space:nowrap}
+  .phase{display:flex;align-items:center;gap:11px;padding:11px 14px;border:1px solid var(--border);border-radius:11px;background:var(--surface);margin-bottom:6px;cursor:pointer}
+  .phase.active{border-color:var(--accent)}
+  .phase.locked{opacity:.6}
+  .phase.done .ph-name{color:var(--muted)}
+  .ph-caret{background:none;border:none;color:var(--faint);display:grid;place-items:center;padding:2px;cursor:pointer;flex:none}
+  .ph-caret svg{width:15px;height:15px}
+  .ph-badge{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px;flex:none}
+  .ph-badge.done{background:var(--accent);color:#fff}
+  .ph-badge.done svg{width:14px;height:14px;color:#fff}
+  .ph-badge.active{background:var(--accent-soft);color:var(--accent-strong);box-shadow:inset 0 0 0 2px var(--accent)}
+  .ph-badge.locked{background:var(--surface-3);color:var(--faint)}
+  .ph-badge.locked svg{width:13px;height:13px}
+  .ph-badge.mini{width:20px;height:20px;font-size:11px;background:var(--surface-3);color:var(--muted)}
+  .ph-name{font-weight:700;font-size:14px;flex:1;min-width:0}
+  .ph-bar{width:84px;height:7px;background:var(--surface-3);border-radius:5px;overflow:hidden;flex:none}
+  .ph-bar span{display:block;height:100%;background:var(--accent);border-radius:5px;transition:width .25s}
+  .ph-pct{font-size:12.5px;font-weight:800;width:36px;text-align:right}
+  .ph-sub{font-size:12px;color:var(--faint);font-weight:700;width:34px;text-align:center}
+  .ph-due{font-size:12px;color:var(--muted);font-weight:700;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+  .ph-due svg{width:13px;height:13px;opacity:.7}
+  .subrow{display:flex;align-items:center;gap:11px;padding:9px 14px 9px 48px;border-bottom:1px solid var(--border);background:var(--surface)}
+  .subrow:hover{background:var(--surface-2)}
+  .subrow.is-done .sub-name{text-decoration:line-through;color:var(--faint)}
+  .subrow.locked{opacity:.55}
+  .sub-id{font-size:11px;font-weight:800;color:var(--faint);min-width:24px;font-variant-numeric:tabular-nums}
+  .sub-name{font-weight:600;font-size:13.5px;flex:1;min-width:0;cursor:pointer}
+  .sub-name:hover{color:var(--accent-strong)}
+  .sub-meta{display:flex;align-items:center;gap:10px}
+  .sublock{width:19px;height:19px;display:grid;place-items:center;color:var(--faint);flex:none}
+  .sublock svg{width:14px;height:14px}
+  .chk.sm{width:16px;height:16px;border-width:2px}
+  .plan-banner{margin-top:14px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:11px;padding:11px 14px;font-size:13px;font-weight:600;color:var(--ink);line-height:1.45}
+  .mark-btn[disabled]{opacity:.45;cursor:not-allowed}
+  @media(max-width:640px){.ph-bar,.gt-meta{display:none}.subrow{padding-left:40px}}
+
   /* ---------- CRM ---------- */
   .stage-pill{font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap}
   .deal{font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px;letter-spacing:.02em}
@@ -343,8 +389,11 @@ const users = {
   dmytro:{name:"Dmytro P.",init:"DP", color:"#6E93D6"},
   olena: {name:"Olena V.", init:"OV", color:"#6F5A96"},
   karina:{name:"Karina D.",init:"KD", color:"#B0679B"},
+  yana:  {name:"Yana K.",  init:"YK", color:"#C98A4E"},
+  katya: {name:"Katya B.", init:"KB", color:"#4FA9A0"},
 };
 const projects = [
+  {id:"launch",   name:"LinkedIn Launch — Client X", color:"#DBA646", plan:true},
   {id:"web",      name:"Website Redesign",   color:"#4F8F5B"},
   {id:"outreach", name:"Q4 Outreach Campaign",color:"#6F5A96"},
   {id:"conf",     name:"Conference Prep",     color:"#3E8F95"},
@@ -355,6 +404,38 @@ const sections = [
   {id:"review", name:"In Review",   color:"#6E93D6"},
   {id:"done",   name:"Done",        color:"#4F8F5B"},
 ];
+// Phased plan for the "launch" project: phases run in sequence, each unlocks the next.
+const plans={
+  launch:[
+    {id:"p1", name:"Analysis & research", due:"2026-10-05", subs:[
+      {id:"1.1", name:"Kickoff meeting with client", due:"2026-10-01", owner:"alex",  done:true},
+      {id:"1.2", name:"Market & competitor analysis", due:"2026-10-03", owner:"maria", done:true},
+      {id:"1.3", name:"Build ICP & target list",      due:"2026-10-05", owner:"karina",done:true},
+    ]},
+    {id:"p2", name:"Strategy development", due:"2026-10-08", subs:[
+      {id:"2.1", name:"Define messaging", due:"2026-10-06", owner:"maria", done:true},
+      {id:"2.2", name:"Approve strategy with client", due:"2026-10-08", owner:"katya", done:false, dependsOn:"2.1", priority:"high",
+        desc:"Prepare the strategy deck and get client sign-off on the call. Capture feedback and lock edits."},
+      {id:"2.3", name:"Approve KPIs", due:"2026-10-10", owner:"alex", done:false, dependsOn:"2.2"},
+    ]},
+    {id:"p3", name:"Content creation", due:"2026-10-18", subs:[
+      {id:"3.1", name:"Write copy",              due:"2026-10-12", owner:"dmytro", done:false},
+      {id:"3.2", name:"Create visuals",          due:"2026-10-14", owner:"olena",  done:false},
+      {id:"3.3", name:"Internal review",         due:"2026-10-16", owner:"alex",   done:false, dependsOn:"3.2"},
+      {id:"3.4", name:"Client content approval", due:"2026-10-18", owner:"maria",  done:false, dependsOn:"3.3"},
+    ]},
+    {id:"p4", name:"Launch outreach", due:"2026-10-22", subs:[
+      {id:"4.1", name:"Warm up profiles",             due:"2026-10-19", owner:"karina", done:false},
+      {id:"4.2", name:"Send first-touch sequence",    due:"2026-10-20", owner:"karina", done:false, dependsOn:"4.1"},
+      {id:"4.3", name:"Log replies into the CRM",     due:"2026-10-22", owner:"maria",  done:false},
+    ]},
+    {id:"p5", name:"Results analysis", due:"2026-10-30", subs:[
+      {id:"5.1", name:"Compile KPI report",   due:"2026-10-29", owner:"maria", done:false},
+      {id:"5.2", name:"Client wrap-up call",  due:"2026-10-30", owner:"yana",  done:false, dependsOn:"5.1"},
+    ]},
+  ],
+};
+const planCollapsed=new Set();
 let seq = 100;
 let tasks = [
   {id:"w1", project:"web", section:"inprog", title:"Finalize homepage screen 03 copy", assignee:"alex", due:"2026-09-22", priority:"high",
@@ -470,7 +551,7 @@ const stats={
   ],
 };
 
-const state = {view:"mytasks", layout:"board", selected:null, selectedLead:null, composeFor:null, crmScope:"all", crmTab:"pipeline", crmAmb:"all"};
+const state = {view:"mytasks", layout:"board", selected:null, selectedLead:null, selectedPlanSub:null, composeFor:null, crmScope:"all", crmTab:"pipeline", crmAmb:"all"};
 
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
@@ -493,6 +574,9 @@ const svg = p => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 const CAL = svg('<rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>');
 const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 const FORK = svg('<path d="M6 3v12M6 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM18 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM18 6v2a4 4 0 0 1-4 4H6"/>');
+const LOCK = svg('<rect x="4" y="10.5" width="16" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>');
+const CARETD = svg('<path d="M6 9l6 6 6-6"/>');
+const CARETR = svg('<path d="M9 6l6 6-6 6"/>');
 function ava(uid,sm){const u=users[uid];return `<span class="ava ${sm?'sm':''}" style="background:${u.color}" title="${u.name}">${u.init}</span>`;}
 function priPill(p){const L={high:"High",med:"Medium",low:"Low"};return `<span class="pri ${p}">${L[p]}</span>`;}
 function subCount(t){if(!t.subs.length)return"";const d=t.subs.filter(s=>s.done).length;return `<span class="subc">${FORK}${d}/${t.subs.length}</span>`;}
@@ -510,7 +594,7 @@ function renderNav(){
   // Internal projects (tasks only)
   const pn=$("#projnav");pn.innerHTML="";
   projects.forEach(p=>{
-    const open=tasks.filter(t=>t.project===p.id&&t.section!=="done").length;
+    const open=p.plan?planOpenCount(p.id):tasks.filter(t=>t.project===p.id&&t.section!=="done").length;
     const a=el("a",state.view===p.id?"active":"",`<span class="proj-dot" style="background:${p.color}"></span>${p.name}<span class="count">${open}</span>`);
     a.dataset.view=p.id;a.onclick=()=>go(p.id);pn.appendChild(a);
   });
@@ -533,11 +617,18 @@ function go(view){
   $("#sidebar").classList.remove("open");
   const isProj = !!proj(view);
   $("#seg").hidden = !isProj;
+  if(isProj){
+    const p=proj(view);
+    if(p.plan){ state.layout="plan"; $("#seg").hidden=true; }      // phased projects show only the plan tree
+    else{ if(state.layout==="plan")state.layout="board";
+      $("#seg").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x.dataset.layout===state.layout)); }
+  }
   const t=$("#viewTitle"), sub=$("#viewSub"), pd=$("#pdot");
   const simple={ mytasks:["My Tasks",""], inbox:["Inbox",""] };
   if(simple[view]){t.textContent=simple[view][0];sub.textContent=simple[view][1];pd.style.display="none";}
   else{const p=proj(view);t.textContent=p.name;pd.style.display="";pd.style.background=p.color;
-       const open=tasks.filter(x=>x.project===p.id&&x.section!=="done").length;sub.textContent=open+" open";}
+       if(p.plan){const ps=planStats(p.id);sub.textContent=`${ps.total-ps.done} open · ${ps.pct}% done`;}
+       else{const open=tasks.filter(x=>x.project===p.id&&x.section!=="done").length;sub.textContent=open+" open";}}
   renderNav();render();
   $("#content").scrollTop=0;
 }
@@ -559,6 +650,7 @@ function render(){
   if(state.view==="mytasks") return renderMyTasks(c);
   if(state.view==="inbox")   return renderInbox(c);
   if(state.view==="crm")     return renderCRM(c);
+  if(state.layout==="plan")  return renderPlan(c);
   if(state.layout==="board") return renderBoard(c);
   return renderList(c);
 }
@@ -923,6 +1015,94 @@ function listRow(t){
   return r;
 }
 
+/* ================= Plan: phased tree (dependencies + auto-unlock) ================= */
+function planFor(pid){return plans[pid]||[];}
+function phaseDone(ph){return ph.subs.every(s=>s.done);}
+function phaseProgress(ph){const d=ph.subs.filter(s=>s.done).length;return {done:d,total:ph.subs.length,pct:Math.round(d/ph.subs.length*100)};}
+function phaseUnlocked(plan,i){return i===0||phaseDone(plan[i-1]);}
+function subById(plan,id){for(const ph of plan)for(const s of ph.subs)if(s.id===id)return s;return null;}
+function subActionable(plan,i,s){if(!phaseUnlocked(plan,i))return false; if(s.dependsOn){const d=subById(plan,s.dependsOn); if(d&&!d.done)return false;} return true;}
+function planStats(pid){let d=0,t=0;planFor(pid).forEach(ph=>ph.subs.forEach(s=>{t++;if(s.done)d++;}));return{done:d,total:t,pct:t?Math.round(d/t*100):0};}
+function planOpenCount(pid){const s=planStats(pid);return s.total-s.done;}
+function toggleSub(pid,s){s.done=!s.done;renderNav();render();if(state.selectedPlanSub===s.id)openPlanTask(pid,s.id);}
+
+function renderPlan(c){
+  const pid=state.view, plan=planFor(pid), p=proj(pid), st=planStats(pid);
+  const wrap=el("div","plan");
+  const allDone=st.done===st.total;
+  const gh=el("div","gtask"+(allDone?" done":""));
+  gh.innerHTML=`<span class="gt-ico">${allDone?"🏁":"🎯"}</span>
+    <div class="gt-main"><div class="gt-name">${p.name}</div>
+      <div class="gt-bar"><span style="width:${st.pct}%"></span></div></div>
+    <span class="gt-pct tnum">${st.pct}%</span>
+    <span class="gt-meta">${st.total} subtasks · ${plan.length} phases</span>`;
+  wrap.appendChild(gh);
+  plan.forEach((ph,i)=>{
+    const unlocked=phaseUnlocked(plan,i), pr=phaseProgress(ph), collapsed=planCollapsed.has(ph.id);
+    const status = pr.pct===100?"done":(unlocked?"active":"locked");
+    const badge = status==="done"?`<span class="ph-badge done">${CHECK}</span>`
+      : status==="active"?`<span class="ph-badge active">${i+1}</span>`
+      : `<span class="ph-badge locked">${LOCK}</span>`;
+    const row=el("div","phase "+status);
+    row.innerHTML=`<button class="ph-caret" aria-label="toggle">${collapsed?CARETR:CARETD}</button>${badge}
+      <div class="ph-name">${i+1}. ${ph.name}</div>
+      <div class="ph-bar"><span style="width:${pr.pct}%"></span></div>
+      <span class="ph-pct tnum">${pr.pct}%</span>
+      <span class="ph-sub">${pr.done}/${pr.total}</span>
+      <span class="ph-due">${CAL}${fmtDate(ph.due)}</span>`;
+    row.querySelector(".ph-caret").onclick=()=>{collapsed?planCollapsed.delete(ph.id):planCollapsed.add(ph.id);render();};
+    row.onclick=e=>{if(!e.target.closest(".ph-caret")){collapsed?planCollapsed.delete(ph.id):planCollapsed.add(ph.id);render();}};
+    wrap.appendChild(row);
+    if(collapsed)return;
+    ph.subs.forEach(s=>{
+      const act=subActionable(plan,i,s);
+      const sr=el("div","subrow"+(s.done?" is-done":"")+((act||s.done)?"":" locked"));
+      const box = s.done?`<span class="chk done">${CHECK}</span>` : act?`<span class="chk"></span>` : `<span class="sublock">${LOCK}</span>`;
+      sr.innerHTML=`${box}<span class="sub-id">${s.id}</span>
+        <span class="sub-name">${s.name}</span>
+        <span class="sub-meta">${s.priority==="high"?priPill("high"):""}
+          <span class="due ${isOver(s.due)&&!s.done?'over':''}">${CAL}${fmtDate(s.due)}</span>${ava(s.owner,true)}</span>`;
+      const chk=sr.querySelector(".chk"); if(chk&&(act||s.done))chk.onclick=e=>{e.stopPropagation();toggleSub(pid,s);};
+      sr.querySelector(".sub-name").onclick=()=>openPlanTask(pid,s.id);
+      wrap.appendChild(sr);
+    });
+  });
+  wrap.appendChild(el("div","plan-banner",allDone?`🏁 <b>All phases complete — the global task closed automatically.</b>`:`🎉 When every subtask is done, <b>the global task closes automatically.</b> Completing a phase <b>auto-unlocks the next</b>.`));
+  c.appendChild(wrap);
+}
+function openPlanTask(pid,subId){
+  const plan=planFor(pid); let ph=null,idx=0,s=null;
+  plan.forEach((p2,i)=>p2.subs.forEach(x=>{if(x.id===subId){ph=p2;idx=i;s=x;}}));
+  if(!s)return;
+  state.selected=null;state.selectedLead=null;state.selectedPlanSub=subId;
+  const act=subActionable(plan,idx,s);
+  const status = s.done?["Done","var(--accent-strong)"]:(act?["In progress","var(--pri-med)"]:["Waiting","var(--faint)"]);
+  const dep = s.dependsOn?subById(plan,s.dependsOn):null;
+  const dr=$("#drawer");
+  dr.innerHTML=`
+    <div class="dr-top">
+      <button class="mark-btn ${s.done?'done':''}" id="psDone" ${(!act&&!s.done)?'disabled':''}>${CHECK}${s.done?'Completed':'Mark complete'}</button>
+      <div class="spacer"></div>
+      <button class="icon-btn" id="drClose" aria-label="Close">${svg('<path d="M18 6 6 18M6 6l12 12"/>')}</button>
+    </div>
+    <div class="dr-body">
+      <div class="dr-title" style="font-size:19px"><span class="sub-id" style="font-size:14px">${s.id}</span> ${s.name}</div>
+      <div class="fields">
+        <div class="field"><span class="k">Status</span><span class="v"><span class="deal" style="color:${status[1]};background:var(--surface-2)">${status[0]}</span></span></div>
+        <div class="field"><span class="k">Assignee</span><span class="v"><span class="assignee-pill">${ava(s.owner,true)}${users[s.owner].name}</span></span></div>
+        <div class="field"><span class="k">Deadline</span><span class="v">${fmtDate(s.due)}</span></div>
+        ${s.priority?`<div class="field"><span class="k">Priority</span><span class="v">${priPill(s.priority)}</span></div>`:""}
+        <div class="field"><span class="k">Parent task</span><span class="v"><span class="ph-badge mini">${idx+1}</span> ${ph.name}</span></div>
+        <div class="field"><span class="k">Depends on</span><span class="v">${dep?`<span class="chk sm ${dep.done?'done':''}">${dep.done?CHECK:''}</span> ${dep.id} ${dep.name}`:"—"}</span></div>
+      </div>
+      ${s.desc?`<div><div class="dr-sec-label">Description</div><div class="desc">${s.desc}</div></div>`:""}
+      ${(!act&&!s.done)?`<div class="dup-note">🔒 Waiting on ${dep?`<b>${dep.id} ${dep.name}</b>`:"the previous phase"} before this can start.</div>`:""}
+    </div>`;
+  dr.querySelector("#drClose").onclick=closeDrawer;
+  const b=dr.querySelector("#psDone"); if(b&&(act||s.done))b.onclick=()=>toggleSub(pid,s);
+  dr.classList.add("open");dr.setAttribute("aria-hidden","false");$("#scrim").classList.add("open");
+}
+
 /* ---------- Inbox (light placeholder, still real content) ---------- */
 function renderInbox(c){
   const wrap=el("div","mt");
@@ -995,7 +1175,7 @@ function openTask(id){
   dr.classList.add("open");dr.setAttribute("aria-hidden","false");
   $("#scrim").classList.add("open");
 }
-function closeDrawer(){state.selected=null;state.selectedLead=null;$("#drawer").classList.remove("open");$("#drawer").setAttribute("aria-hidden","true");$("#scrim").classList.remove("open");}
+function closeDrawer(){state.selected=null;state.selectedLead=null;state.selectedPlanSub=null;$("#drawer").classList.remove("open");$("#drawer").setAttribute("aria-hidden","true");$("#scrim").classList.remove("open");}
 
 /* ---------- wire top bar ---------- */
 $("#seg").querySelectorAll("button").forEach(b=>b.onclick=()=>{
