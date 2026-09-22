@@ -168,6 +168,75 @@
   .bucket-head .n{color:var(--faint);font-weight:700;font-size:12px}
   .mt .row .proj{font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px;color:#fff}
 
+  /* ---------- CRM ---------- */
+  .stage-pill{font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap}
+  .deal{font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px;letter-spacing:.02em}
+  .deal.open{color:var(--muted);background:var(--surface-2)}
+  .deal.won{color:var(--accent-strong);background:var(--accent-soft)}
+  .deal.lost{color:var(--pri-high);background:var(--pri-high-soft)}
+  .tag-crm{font-size:11px;font-weight:800;color:var(--brand-teal);background:rgba(62,143,149,.14);padding:3px 8px 3px 6px;border-radius:6px;display:inline-flex;align-items:center;gap:4px}
+  .tag-crm svg{width:13px;height:13px}
+  .lead-sub{font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+  .card.lead{cursor:pointer}
+  .card.lead .ctitle{font-size:13.5px}
+  /* Leads table */
+  .leads-wrap{padding:14px 22px 40px;overflow-x:auto}
+  .lead-table{border-collapse:separate;border-spacing:0;width:100%;min-width:820px;font-size:13px;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .lead-table th{text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);font-weight:800;padding:11px 14px;background:var(--surface-2);border-bottom:1px solid var(--border)}
+  .lead-table td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+  .lead-table tbody tr{cursor:pointer}
+  .lead-table tbody tr:hover td{background:var(--surface-2)}
+  .lead-table tbody tr:last-child td{border-bottom:none}
+  .lead-table td.ln{font-weight:700;display:flex;align-items:center;gap:9px;white-space:nowrap}
+  .lead-table td.muted{color:var(--muted)}
+  .lead-table .ovr{color:var(--pri-high);font-weight:700}
+  /* Stats */
+  .stats-wrap{padding:18px 22px 44px;max-width:960px}
+  .stats-h{font-weight:800;font-size:14px;margin:18px 2px 12px;display:flex;gap:8px;align-items:center}
+  .stats-h:first-child{margin-top:2px}
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .kpi .kv{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .kpi .kl{font-size:12px;color:var(--muted);font-weight:600;margin-top:3px}
+  .stat-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:13px}
+  .stat-table th{text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);font-weight:800;padding:10px 14px;background:var(--surface-2);border-bottom:1px solid var(--border)}
+  .stat-table td{padding:9px 14px;border-bottom:1px solid var(--border)}
+  .stat-table tr:last-child td{border-bottom:none}
+  .stat-table tr.grp td{font-weight:800;font-size:12px;color:var(--ink);background:var(--surface-2);text-transform:none;letter-spacing:0}
+  .bar{height:8px;background:var(--surface-3);border-radius:5px;overflow:hidden}
+  .bar span{display:block;height:100%;border-radius:5px}
+  .stats-note{margin-top:14px;font-size:12.5px;color:var(--muted);font-style:italic;padding:0 2px}
+  /* Lead drawer bits */
+  .lead-id{display:flex;align-items:center;gap:12px}
+  .lead-id .dr-title{font-weight:800}
+  .li-btn{margin-left:auto;color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:7px;display:grid;place-items:center;cursor:pointer}
+  .li-btn:hover{color:var(--accent-strong);border-color:var(--accent)}
+  .li-btn svg{width:16px;height:16px}
+  .next-box{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+  .nb-l{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+  .nb-t{font-weight:700;font-size:15px;margin-top:2px}
+  .nb-r{display:flex;align-items:center;gap:10px}
+  .nb-done{display:flex;align-items:center;gap:6px;background:var(--accent);color:var(--on-accent);border:none;border-radius:8px;padding:8px 12px;font-weight:700;font-size:12.5px}
+  .nb-done svg{width:14px;height:14px}
+  .nb-done:hover{background:var(--accent-bright)}
+  .funnel{display:flex;align-items:center;gap:0}
+  .fstep{display:flex;flex-direction:column;align-items:center;gap:6px;flex:none;width:64px;text-align:center}
+  .fdot{width:15px;height:15px;border-radius:50%;border:2px solid var(--border-strong);background:var(--surface)}
+  .fline{height:2px;background:var(--border);flex:1;min-width:6px;margin-bottom:26px}
+  .fname{font-size:10.5px;font-weight:700;line-height:1.2}
+  .fstep:not(.on) .fname{color:var(--faint)}
+  .fdate{font-size:10px;color:var(--faint);font-variant-numeric:tabular-nums}
+  .timeline{display:flex;flex-direction:column}
+  .tl-item{display:flex;gap:11px;padding-bottom:14px;position:relative}
+  .tl-item:not(:last-child)::before{content:"";position:absolute;left:5px;top:14px;bottom:0;width:2px;background:var(--border)}
+  .tl-dot{width:12px;height:12px;border-radius:50%;background:var(--brand-teal);flex:none;margin-top:2px;z-index:1}
+  .tl-body{flex:1}
+  .tl-top{display:flex;justify-content:space-between;gap:8px;font-size:13.5px}
+  .tl-date{color:var(--faint);font-size:12px;font-weight:700}
+  .tl-msg{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .tl-ans{font-size:12.5px;color:var(--ink);margin-top:4px;background:var(--surface-2);border-radius:8px;padding:6px 9px}
+  @media(max-width:600px){.fstep{width:52px}.fname{font-size:9.5px}}
+
   /* ---------- Drawer ---------- */
   .scrim{position:fixed;inset:0;background:rgba(10,20,16,.42);opacity:0;pointer-events:none;transition:.2s;z-index:40}
   .scrim.open{opacity:1;pointer-events:auto}
@@ -212,6 +281,11 @@
     <nav class="nav" id="nav">
       <a data-view="mytasks" class="active"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>My Tasks</a>
       <a data-view="inbox"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13l3.5 7v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6l3.5-7Z"/></svg>Inbox<span class="count">3</span></a>
+      <div class="nav-label">Outreach CRM</div>
+      <a data-view="pipeline"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h7v12H3zM14 6h7v7h-7z"/><path d="M10 10h4"/></svg>Pipeline</a>
+      <a data-view="leads"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg>Leads</a>
+      <a data-view="mqls"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 3 14 8l5.5.8-4 3.9.9 5.5-4.9-2.6L6.6 21l.9-5.5-4-3.9L9 8z"/></svg>MQLs<span class="count" id="mqlCount"></span></a>
+      <a data-view="stats"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></svg>Stats</a>
       <div class="nav-label">Projects</div>
       <div id="projnav"></div>
     </nav>
@@ -247,6 +321,7 @@ const users = {
   maria: {name:"Maria S.", init:"MS", color:"#E8705A"},
   dmytro:{name:"Dmytro P.",init:"DP", color:"#6E93D6"},
   olena: {name:"Olena V.", init:"OV", color:"#6F5A96"},
+  karina:{name:"Karina D.",init:"KD", color:"#B0679B"},
 };
 const projects = [
   {id:"web",      name:"Website Redesign",   color:"#4F8F5B"},
@@ -282,7 +357,78 @@ let tasks = [
   {id:"c5", project:"conf", section:"done", title:"Pre-event LinkedIn teasers", assignee:"dmytro", due:"2026-09-18", priority:"low", desc:"", subs:[]},
 ];
 
-const state = {view:"mytasks", layout:"board", selected:null, composeFor:null};
+/* ---------- CRM: outreach funnel + leads ---------- */
+const leadStages=[
+  {id:"connecting",   name:"Connecting",   color:"#8A949E"},
+  {id:"awareness",    name:"Awareness",    color:"#6F5A96"},
+  {id:"engagement",   name:"Engagement",   color:"#3E8F95"},
+  {id:"qualification",name:"Qualification",color:"#6E93D6"},
+  {id:"interest",     name:"Interest",     color:"#DBA646"},
+  {id:"mql",          name:"MQL",          color:"#4F8F5B"},
+];
+const lgStatus={request_sent:"Request sent","2nd_sent":"2nd sent",accepted:"Accepted",withdraw:"Withdraw",not_ta:"Not TA",unsubscribe:"Unsubscribe"};
+const campaign = "outreach"; // leads belong to the Q4 Outreach Campaign project
+let leads=[
+  {id:"L1", name:"Ivan Melnyk", title:"Head of Growth", company:"FinScale", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
+    stage:"connecting", statusLG:"request_sent", deal:"open", dates:{}, next:{date:"2026-09-27",task:"Withdraw check"}, strategy:"General ICP pains", touches:[], comment:"Request pending 3 days."},
+  {id:"L2", name:"Oksana Bondar", title:"HR Manager", company:"PayLink", loc:"Lviv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"maria",
+    stage:"connecting", statusLG:"2nd_sent", deal:"open", dates:{}, next:{date:"2026-09-24",task:"Connection request"}, strategy:"General ICP pains", touches:[], comment:"Re-sent after withdraw."},
+  {id:"L3", name:"Petro Kovalenko", title:"Talent Lead", company:"NovaBank", loc:"Kyiv, UA", industry:"Banking", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
+    stage:"awareness", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-18"}, next:{date:"2026-09-22",task:"First message"}, strategy:"Conference warm-up", touches:[], comment:""},
+  {id:"L4", name:"Anna Shevchenko", title:"Head of People", company:"Kvitly", loc:"Kyiv, UA", industry:"SaaS", source:"LinkedIn", channel:"LinkedIn", owner:"alex",
+    stage:"awareness", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-20"}, next:{date:"2026-09-21",task:"First message"}, strategy:"General ICP pains", touches:[], comment:"Accepted fast — active poster."},
+  {id:"L5", name:"Dmytro Tkachenko", title:"COO", company:"LedgerPay", loc:"Warsaw, PL", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
+    stage:"engagement", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-16",engage:"2026-09-19"}, next:{date:"2026-09-22",task:"Ping"}, strategy:"Conference warm-up",
+    touches:[{date:"2026-09-17",task:"First message",msg:"Conference intro",answer:"Thanks, will check the agenda"},{date:"2026-09-19",task:"Comment",msg:"Reacted to their post",answer:"👍"}], comment:""},
+  {id:"L6", name:"Sofia Marchenko", title:"HR Director", company:"Streamline", loc:"Kyiv, UA", industry:"SaaS", source:"Conference app", channel:"Event app", owner:"maria",
+    stage:"engagement", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-14",engage:"2026-09-17"}, next:{date:"2026-09-24",task:"2nd message"}, strategy:"Event follow-up",
+    touches:[{date:"2026-09-16",task:"First message",msg:"Event follow-up",answer:"Let's talk after the event"}], comment:""},
+  {id:"L7", name:"Andriy Lysenko", title:"VP Sales", company:"Corda", loc:"Remote, EU", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"alex",
+    stage:"qualification", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-12",engage:"2026-09-15",qual:"2026-09-16"}, next:{date:"2026-09-22",task:"Share case study"}, strategy:"Pain: no lead-status system",
+    touches:[{date:"2026-09-13",task:"First message",msg:"ICP pains",answer:"We track leads in spreadsheets, it's messy"},{date:"2026-09-15",task:"Ping",msg:"Follow-up question",answer:"Yes, open to ideas"}], comment:"Clear pain — no CRM in place."},
+  {id:"L8", name:"Yulia Romanenko", title:"Head of Ops", company:"FlowFin", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
+    stage:"qualification", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-13",engage:"2026-09-16",qual:"2026-09-18"}, next:{date:"2026-09-23",task:"Ping"}, strategy:"Pain: manual reporting",
+    touches:[{date:"2026-09-14",task:"First message",msg:"ICP pains",answer:"Reporting eats our week"}], comment:""},
+  {id:"L9", name:"Maksym Ivanov", title:"CEO", company:"Trinket", loc:"Tallinn, EE", industry:"SaaS", source:"LinkedIn", channel:"LinkedIn", owner:"alex",
+    stage:"interest", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-11",engage:"2026-09-13",qual:"2026-09-14",interest:"2026-09-15"}, next:{date:"2026-09-22",task:"Book call"}, strategy:"Direct solution fit",
+    touches:[{date:"2026-09-12",task:"First message",msg:"ICP pains",answer:"How does your pricing work?"},{date:"2026-09-15",task:"Reply",msg:"Sent pricing + case",answer:"Looks interesting, let's chat"}], comment:"Asked about pricing — hot."},
+  {id:"L10", name:"Kateryna Boyko", title:"Founder", company:"Payila", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"Telegram", owner:"maria",
+    stage:"interest", statusLG:"accepted", deal:"open", dates:{aware:"2026-09-15",engage:"2026-09-17",qual:"2026-09-18",interest:"2026-09-19"}, next:{date:"2026-09-25",task:"Send calendar"}, strategy:"Direct solution fit",
+    touches:[{date:"2026-09-18",task:"First message",msg:"ICP pains",answer:"Send me a calendar link"}], comment:"Moved to Telegram."},
+  {id:"L11", name:"Roman Danylenko", title:"Head of Growth", company:"Monobyte", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"karina",
+    stage:"mql", statusLG:"accepted", deal:"won", dates:{aware:"2026-09-08",engage:"2026-09-11",qual:"2026-09-14",interest:"2026-09-17",mql:"2026-09-20"}, next:{date:"",task:""}, strategy:"Direct solution fit",
+    touches:[], comment:"", details:"Intro call booked with client's sales team for Sep 24. Warm — wants a pilot."},
+  {id:"L12", name:"Nataliya Kravets", title:"CMO", company:"Zoria", loc:"Warsaw, PL", industry:"SaaS", source:"Conference app", channel:"Event app", owner:"alex",
+    stage:"mql", statusLG:"accepted", deal:"won", dates:{aware:"2026-09-05",engage:"2026-09-09",qual:"2026-09-12",interest:"2026-09-15",mql:"2026-09-16"}, next:{date:"",task:""}, strategy:"Event follow-up",
+    touches:[], comment:"", details:"Handed to client sales manager. Demo done, evaluating."},
+  {id:"L13", name:"Oleh Symonenko", title:"HR Manager", company:"GrayFin", loc:"Kyiv, UA", industry:"Fintech", source:"LinkedIn", channel:"LinkedIn", owner:"maria",
+    stage:"engagement", statusLG:"accepted", deal:"lost", dates:{aware:"2026-09-10",engage:"2026-09-13"}, next:{date:"",task:""}, strategy:"General ICP pains",
+    touches:[{date:"2026-09-12",task:"First message",msg:"ICP pains",answer:"No budget this year"}], comment:"", lost:"No budget / timing"},
+];
+// Daily plan-vs-fact targets (Statistics tab)
+const stats={
+  ambassador:"karina",
+  rows:[
+    {group:"Lead Generation", label:"Requests sent",  plan:400, fact:284, pct:false},
+    {group:"Lead Generation", label:"Accepted",       plan:120, fact:91,  pct:false},
+    {group:"Lead Generation", label:"Withdrawn",      plan:0,   fact:12,  pct:false},
+    {group:"Lead Generation", label:"Inbound accepted",plan:20, fact:14,  pct:false},
+    {group:"Lead Nurturing",  label:"Messages / touches",plan:400,fact:262,pct:false},
+    {group:"Lead Nurturing",  label:"Answers",        plan:120, fact:78,  pct:false},
+    {group:"Lead Nurturing",  label:"MQLs",           plan:8,   fact:5,   pct:false},
+    {group:"Engagement",      label:"Comments written",plan:20, fact:16,  pct:false},
+  ],
+  outreach:[
+    {label:"Reply rate",        val:"29.8%"},
+    {label:"Positive replies",  val:"46"},
+    {label:"Negative replies",  val:"32"},
+    {label:"Connections growth",val:"+318"},
+    {label:"Follower growth",   val:"+204"},
+    {label:"MQLs",              val:"5"},
+  ],
+};
+
+const state = {view:"mytasks", layout:"board", selected:null, selectedLead:null, composeFor:null};
 
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
@@ -321,6 +467,7 @@ function renderNav(){
     a.classList.toggle("active",a.dataset.view===state.view);
     a.onclick=()=>go(a.dataset.view);
   });
+  const mc=$("#mqlCount");if(mc)mc.textContent=leads.filter(l=>l.stage==="mql").length;
 }
 
 /* ---------- routing ---------- */
@@ -330,8 +477,15 @@ function go(view){
   const isProj = !!proj(view);
   $("#seg").hidden = !isProj;
   const t=$("#viewTitle"), sub=$("#viewSub"), pd=$("#pdot");
-  if(view==="mytasks"){t.textContent="My Tasks";sub.textContent="";pd.style.display="none";}
-  else if(view==="inbox"){t.textContent="Inbox";sub.textContent="";pd.style.display="none";}
+  const activeLeads=leads.filter(l=>l.deal!=="lost"&&l.stage!=="mql");
+  const simple={
+    mytasks:["My Tasks",""], inbox:["Inbox",""],
+    pipeline:["Pipeline", activeLeads.length+" active leads"],
+    leads:["Leads", leads.length+" total"],
+    mqls:["MQLs", leads.filter(l=>l.stage==="mql").length+" handed off"],
+    stats:["Outreach Stats","September 2026 · plan vs fact"],
+  };
+  if(simple[view]){t.textContent=simple[view][0];sub.textContent=simple[view][1];pd.style.display="none";}
   else{const p=proj(view);t.textContent=p.name;pd.style.display="";pd.style.background=p.color;
        const open=tasks.filter(x=>x.project===p.id&&x.section!=="done").length;sub.textContent=open+" open";}
   renderNav();render();
@@ -343,6 +497,10 @@ function render(){
   const c=$("#content");c.innerHTML="";
   if(state.view==="mytasks") return renderMyTasks(c);
   if(state.view==="inbox")   return renderInbox(c);
+  if(state.view==="pipeline")return renderPipeline(c);
+  if(state.view==="leads")   return renderLeads(c);
+  if(state.view==="mqls")    return renderMQLs(c);
+  if(state.view==="stats")   return renderStats(c);
   if(state.layout==="board") return renderBoard(c);
   return renderList(c);
 }
@@ -351,6 +509,10 @@ function render(){
 function renderMyTasks(c){
   const wrap=el("div","mt");
   const mine=tasks.filter(t=>t.assignee==="alex");
+  // Weave: each of my active leads' NEXT action becomes a to-do here
+  const leadItems=leads.filter(l=>l.owner==="alex"&&l.deal==="open"&&l.next&&l.next.date&&l.next.task)
+    .map(l=>({_lead:l, section:"todo", due:l.next.date, title:l.next.task}));
+  const all=[...mine,...leadItems];
   const buckets=[
     {key:"over", label:"Overdue", color:"#E8705A", test:t=>t.section!=="done"&&isOver(t.due)},
     {key:"today",label:"Today",   color:"#DBA646", test:t=>t.section!=="done"&&t.due===fISO(TODAY)},
@@ -359,10 +521,10 @@ function renderMyTasks(c){
     {key:"done", label:"Completed",color:"#8A949E",test:t=>t.section==="done"},
   ];
   buckets.forEach(b=>{
-    const items=mine.filter(b.test);if(!items.length)return;
+    const items=all.filter(b.test);if(!items.length)return;
     const h=el("div","bucket-head",`<span class="flag" style="background:${b.color}"></span>${b.label}<span class="n">${items.length}</span>`);
     wrap.appendChild(h);
-    items.forEach(t=>wrap.appendChild(myRow(t)));
+    items.forEach(t=>wrap.appendChild(t._lead?leadRow(t):myRow(t)));
   });
   c.appendChild(wrap);
 }
@@ -380,8 +542,199 @@ function myRow(t){
   r.onclick=()=>openTask(t.id);
   return r;
 }
-const fISO=d=>d.toISOString().slice(0,10);
+// A lead's next-action rendered as a to-do (the CRM ↔ tasks weave)
+function leadRow(item){
+  const l=item._lead, s=leadStage(l.stage);
+  const r=el("div","row");
+  r.innerHTML=`<span class="chk">${CHECK}</span>
+    <span class="rtitle">${item.title} · <span style="color:var(--muted);font-weight:600">${l.name}</span></span>
+    <span class="rmeta">
+      <span class="tag-crm">${OUTREACH_ICO}Outreach</span>
+      <span class="stage-pill" style="color:${s.color};background:${s.color}22">${s.name}</span>
+      ${item.due?`<span class="due ${isOver(item.due)?"over":""}">${CAL}${fmtDue(item.due)}</span>`:""}
+    </span>`;
+  r.querySelector(".chk").onclick=e=>{e.stopPropagation();advanceNext(l);};
+  r.onclick=()=>openLead(l.id);
+  return r;
+}
+const fISO=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 const days=d=>d?Math.round((new Date(d+"T00:00:00")-TODAY)/86400000):9999;
+
+/* ================= CRM ================= */
+const OUTREACH_ICO=svg('<path d="M4 4h16v12H5.2L4 17.2z"/><path d="M8 9h8M8 12h5"/>');
+const LINK_ICO=svg('<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>');
+const leadStage=id=>leadStages.find(s=>s.id===id);
+const dealPill=d=>{const M={open:["Open","var(--muted)"],won:["Won","var(--accent-strong)"],lost:["Lost","var(--pri-high)"]};const x=M[d];return `<span class="deal ${d}">${x[0]}</span>`;};
+function fmtDate(d){return d?new Date(d+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):"—";}
+function advanceNext(l){
+  // "did this touch" — log it and clear the next action (frees it from My Tasks)
+  if(l.next&&l.next.task){ l.touches.push({date:fISO(TODAY),task:l.next.task,msg:l.strategy,answer:""}); l.last={date:fISO(TODAY),task:l.next.task}; l.next={date:"",task:""}; }
+  renderNav();render();
+  if(state.selectedLead===l.id) openLead(l.id);
+}
+
+/* ---- Pipeline (funnel board) ---- */
+function renderPipeline(c){
+  const board=el("div","board");
+  leadStages.forEach(s=>{
+    const items=leads.filter(l=>l.stage===s.id&&l.deal!=="lost");
+    const col=el("div","col");col.dataset.stage=s.id;
+    col.appendChild(el("div","col-head",`<span class="cdot" style="background:${s.color}"></span>${s.name}<span class="n">${items.length}</span>`));
+    const body=el("div","col-body");
+    items.forEach(l=>body.appendChild(leadCard(l)));
+    col.appendChild(body);
+    col.ondragover=e=>{e.preventDefault();col.classList.add("drop");};
+    col.ondragleave=()=>col.classList.remove("drop");
+    col.ondrop=e=>{e.preventDefault();col.classList.remove("drop");const id=e.dataTransfer.getData("leadId");const l=leads.find(x=>x.id===id);
+      if(l){l.stage=s.id; l.dates[({connecting:"",awareness:"aware",engagement:"engage",qualification:"qual",interest:"interest",mql:"mql"})[s.id]]=fISO(TODAY);
+        if(s.id==="mql")l.deal="won"; renderNav();render();}};
+    board.appendChild(col);
+  });
+  c.appendChild(board);
+}
+function leadCard(l){
+  const s=leadStage(l.stage);
+  const cd=el("div","card lead");cd.draggable=true;
+  const nextBit=l.next&&l.next.task?`<span class="due ${isOver(l.next.date)?"over":""}">${CAL}${l.next.task} · ${fmtDue(l.next.date)}</span>`:`<span class="subc">${dealPill(l.deal)}</span>`;
+  cd.innerHTML=`<div class="ct"><span class="ava sm" style="background:${users[l.owner].color}">${users[l.owner].init}</span>
+      <div><div class="ctitle">${l.name}</div><div class="lead-sub">${l.title} · ${l.company}</div></div></div>
+    <div class="meta">${nextBit}<span class="spacer"></span>${l.answer?`<span class="subc">${OUTREACH_ICO}</span>`:""}</div>`;
+  cd.querySelector(".ctitle").onclick=()=>openLead(l.id);
+  cd.ondragstart=e=>{e.dataTransfer.setData("leadId",l.id);cd.classList.add("dragging");};
+  cd.ondragend=()=>cd.classList.remove("dragging");
+  cd.onclick=e=>{if(!e.target.closest(".ctitle"))openLead(l.id);};
+  return cd;
+}
+
+/* ---- Leads (DB table) ---- */
+function renderLeads(c){
+  const wrap=el("div","leads-wrap");
+  const tbl=el("table","lead-table");
+  tbl.innerHTML=`<thead><tr>
+    <th>Name</th><th>Title</th><th>Company</th><th>Stage</th><th>Status</th><th>Owner</th><th>Next action</th><th>Deal</th></tr></thead>`;
+  const tb=el("tbody");
+  leads.forEach(l=>{
+    const s=leadStage(l.stage);
+    const tr=el("tr");
+    tr.innerHTML=`<td class="ln"><span class="ava sm" style="background:${users[l.owner].color}">${users[l.owner].init}</span>${l.name}</td>
+      <td>${l.title}</td><td>${l.company}</td>
+      <td><span class="stage-pill" style="color:${s.color};background:${s.color}22">${s.name}</span></td>
+      <td class="muted">${lgStatus[l.statusLG]||"—"}</td>
+      <td>${users[l.owner].name.split(" ")[0]}</td>
+      <td class="muted">${l.next&&l.next.task?`${l.next.task} · <span class="${isOver(l.next.date)&&l.deal==='open'?'ovr':''}">${fmtDate(l.next.date)}</span>`:"—"}</td>
+      <td>${dealPill(l.deal)}</td>`;
+    tr.onclick=()=>openLead(l.id);
+    tb.appendChild(tr);
+  });
+  tbl.appendChild(tb);
+  wrap.appendChild(tbl);
+  c.appendChild(wrap);
+}
+
+/* ---- MQLs (handoff list) ---- */
+function renderMQLs(c){
+  const wrap=el("div","mt");
+  const items=leads.filter(l=>l.stage==="mql");
+  wrap.appendChild(el("div","bucket-head",`<span class="flag" style="background:#4F8F5B"></span>Handed off to client<span class="n">${items.length}</span>`));
+  items.forEach(l=>{
+    const r=el("div","row");
+    r.innerHTML=`<span class="ava" style="background:${users[l.owner].color}">${users[l.owner].init}</span>
+      <span class="rtitle" style="font-weight:700">${l.name} <span style="color:var(--muted);font-weight:600">· ${l.title}, ${l.company}</span><div class="lead-sub">${l.details||""}</div></span>
+      <span class="rmeta"><span class="muted" style="font-size:12px">${users[l.owner].name.split(" ")[0]}</span><span class="due">${CAL}${fmtDate(l.dates.mql)}</span>${dealPill(l.deal)}</span>`;
+    r.onclick=()=>openLead(l.id);
+    wrap.appendChild(r);
+  });
+  c.appendChild(wrap);
+}
+
+/* ---- Stats (plan vs fact) ---- */
+function renderStats(c){
+  const wrap=el("div","stats-wrap");
+  // outreach KPI tiles
+  const kpis=el("div","kpi-row");
+  stats.outreach.forEach(k=>kpis.appendChild(el("div","kpi",`<div class="kv">${k.val}</div><div class="kl">${k.label}</div>`)));
+  wrap.appendChild(el("div","stats-h",`Outreach metrics <span class="muted">· ${users[stats.ambassador].name}</span>`));
+  wrap.appendChild(kpis);
+  wrap.appendChild(el("div","stats-h","Daily scope — plan vs fact"));
+  let lastGroup="";
+  const tbl=el("table","stat-table");
+  tbl.innerHTML=`<thead><tr><th>Metric</th><th>Plan</th><th>Fact</th><th style="width:38%">Progress</th></tr></thead>`;
+  const tb=el("tbody");
+  stats.rows.forEach(r=>{
+    if(r.group!==lastGroup){const g=el("tr","grp");g.innerHTML=`<td colspan="4">${r.group}</td>`;tb.appendChild(g);lastGroup=r.group;}
+    const pctv=r.plan>0?Math.min(100,Math.round(r.fact/r.plan*100)):0;
+    const good=r.label==="Withdrawn"?pctv<50:pctv>=70;
+    const tr=el("tr");
+    tr.innerHTML=`<td>${r.label}</td><td class="tnum">${r.plan}</td><td class="tnum">${r.fact}</td>
+      <td><div class="bar"><span style="width:${pctv}%;background:${good?'var(--accent)':'var(--pri-med)'}"></span></div></td>`;
+    tb.appendChild(tr);
+  });
+  tbl.appendChild(tb);wrap.appendChild(tbl);
+  wrap.appendChild(el("div","stats-note",`In Chameleon these fill automatically as leads move through the pipeline — no manual daily entry.`));
+  c.appendChild(wrap);
+}
+
+/* ---- Lead drawer ---- */
+function openLead(id){
+  const l=leads.find(x=>x.id===id);if(!l)return;
+  state.selectedLead=id;
+  const s=leadStage(l.stage);
+  const steps=leadStages.filter(x=>x.id!=="connecting");
+  const dkey={awareness:"aware",engagement:"engage",qualification:"qual",interest:"interest",mql:"mql"};
+  const curIdx=steps.findIndex(x=>x.id===l.stage);
+  const funnel=steps.map((x,i)=>{
+    const done=l.dates[dkey[x.id]];
+    const on=i<=curIdx;
+    return `<div class="fstep ${on?'on':''}"><span class="fdot" style="${on?`background:${x.color};border-color:${x.color}`:''}"></span>
+      <div class="fmeta"><div class="fname">${x.name}</div><div class="fdate">${done?fmtDate(done):"—"}</div></div></div>`;
+  }).join('<div class="fline"></div>');
+  const touches=l.touches.length?l.touches.map(t=>`
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-body">
+      <div class="tl-top"><b>${t.task}</b><span class="tl-date">${fmtDate(t.date)}</span></div>
+      ${t.msg?`<div class="tl-msg">${t.msg}</div>`:""}
+      ${t.answer?`<div class="tl-ans">↳ ${t.answer}</div>`:""}</div></div>`).join(""):`<div class="desc"><i style="color:var(--faint)">No touches logged yet.</i></div>`;
+  const dr=$("#drawer");
+  dr.innerHTML=`
+    <div class="dr-top">
+      <span class="stage-pill" style="color:${s.color};background:${s.color}22">${s.name}</span>
+      ${dealPill(l.deal)}
+      <div class="spacer"></div>
+      <button class="icon-btn" id="drClose" aria-label="Close">${svg('<path d="M18 6 6 18M6 6l12 12"/>')}</button>
+    </div>
+    <div class="dr-body">
+      <div class="lead-id">
+        <span class="ava" style="background:${users[l.owner].color};width:40px;height:40px;font-size:14px">${users[l.owner].init}</span>
+        <div><div class="dr-title" style="font-size:19px">${l.name}</div><div class="lead-sub">${l.title} · ${l.company} · ${l.loc}</div></div>
+        <a class="li-btn" title="LinkedIn">${LINK_ICO}</a>
+      </div>
+      ${l.next&&l.next.task?`<div class="next-box"><div><div class="nb-l">Next action</div><div class="nb-t">${l.next.task}</div></div>
+        <div class="nb-r"><span class="due ${isOver(l.next.date)?'over':''}">${CAL}${fmtDue(l.next.date)}</span>
+        <button class="nb-done" id="ldDone">${CHECK} Log &amp; advance</button></div></div>`:""}
+      <div>
+        <div class="dr-sec-label">Funnel</div>
+        <div class="funnel">${funnel}</div>
+      </div>
+      <div class="fields">
+        <div class="field"><span class="k">Owner</span><span class="v"><span class="assignee-pill"><span class="ava sm" style="background:${users[l.owner].color}">${users[l.owner].init}</span>${users[l.owner].name}</span></span></div>
+        <div class="field"><span class="k">Source</span><span class="v">${l.source}</span></div>
+        <div class="field"><span class="k">Channel</span><span class="v">${l.channel}</span></div>
+        <div class="field"><span class="k">Industry</span><span class="v">${l.industry}</span></div>
+        <div class="field"><span class="k">LG status</span><span class="v">${lgStatus[l.statusLG]||"—"}</span></div>
+        <div class="field"><span class="k">Strategy</span><span class="v">${l.strategy||"—"}</span></div>
+        ${l.deal==="lost"?`<div class="field"><span class="k">Lost reason</span><span class="v">${l.lost||"—"}</span></div>`:""}
+      </div>
+      ${l.details?`<div><div class="dr-sec-label">MQL details</div><div class="desc">${l.details}</div></div>`:""}
+      <div>
+        <div class="dr-sec-label">Conversation</div>
+        <div class="timeline">${touches}</div>
+      </div>
+      ${l.comment?`<div><div class="dr-sec-label">Comment</div><div class="desc">${l.comment}</div></div>`:""}
+    </div>`;
+  dr.querySelector("#drClose").onclick=closeDrawer;
+  const done=dr.querySelector("#ldDone");if(done)done.onclick=()=>advanceNext(l);
+  dr.classList.add("open");dr.setAttribute("aria-hidden","false");
+  $("#scrim").classList.add("open");
+}
 
 /* ---------- Board ---------- */
 function renderBoard(c){
@@ -528,7 +881,7 @@ function openTask(id){
   dr.classList.add("open");dr.setAttribute("aria-hidden","false");
   $("#scrim").classList.add("open");
 }
-function closeDrawer(){state.selected=null;$("#drawer").classList.remove("open");$("#drawer").setAttribute("aria-hidden","true");$("#scrim").classList.remove("open");}
+function closeDrawer(){state.selected=null;state.selectedLead=null;$("#drawer").classList.remove("open");$("#drawer").setAttribute("aria-hidden","true");$("#scrim").classList.remove("open");}
 
 /* ---------- wire top bar ---------- */
 $("#seg").querySelectorAll("button").forEach(b=>b.onclick=()=>{
