@@ -3,42 +3,48 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
+  /* Dark-first: corporate palette is the brand default. Light theme derived below. */
   :root{
     --font: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    --bg:#F4F7F5; --surface:#FFFFFF; --surface-2:#EEF3F0; --surface-3:#E6EDE9;
-    --border:#E0E7E3; --border-strong:#CFD9D3;
-    --ink:#16211C; --muted:#5F7269; --faint:#8697; --faint:#8A9A92;
-    --accent:#12A277; --accent-strong:#0C815F; --accent-soft:#E1F4EC;
-    --pri-high:#E1543B; --pri-high-soft:#FBE7E2;
-    --pri-med:#D9902A; --pri-med-soft:#FaF0DC;
-    --pri-low:#4E85E6; --pri-low-soft:#E6EEFC;
-    --shadow:0 1px 2px rgba(16,40,30,.06), 0 4px 16px rgba(16,40,30,.06);
-    --shadow-lift:0 6px 24px rgba(16,40,30,.14);
+    /* Corporate colours */
+    --bg:#101214; --surface:#171A1F; --surface-2:#1D2229; --surface-3:#252C34;
+    --border:#2A3138; --border-strong:#3A434D;
+    --ink:#F3F5F7; --muted:#A7B0BA; --faint:#727E8A;
+    --brand-green:#4F8F5B; --brand-purple:#6F5A96; --brand-teal:#3E8F95;
+    --accent:#4F8F5B; --accent-bright:#63A971; --accent-strong:#88C596; --accent-soft:rgba(79,143,91,.17);
+    --on-accent:#FFFFFF;
+    --pri-high:#E8705A; --pri-high-soft:rgba(232,112,90,.16);
+    --pri-med:#DBA646;  --pri-med-soft:rgba(219,166,70,.16);
+    --pri-low:#6E93D6;  --pri-low-soft:rgba(110,147,214,.16);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 4px 16px rgba(0,0,0,.34);
+    --shadow-lift:0 10px 34px rgba(0,0,0,.52);
     --radius:12px; --radius-sm:8px;
   }
-  :root:not([data-theme="light"]){
-    @media (prefers-color-scheme: dark){
-      --bg:#0E1613; --surface:#16211C; --surface-2:#1C2823; --surface-3:#243329;
-      --border:#293831; --border-strong:#35473E;
-      --ink:#E7EFEB; --muted:#9DB0A7; --faint:#6E827A;
-      --accent:#2CC091; --accent-strong:#54D3AB; --accent-soft:#12312655;
-      --pri-high:#F0715A; --pri-high-soft:#3a201b;
-      --pri-med:#E7AA4D; --pri-med-soft:#382c14;
-      --pri-low:#6C9BF0; --pri-low-soft:#1c2740;
-      --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.3);
-      --shadow-lift:0 6px 24px rgba(0,0,0,.45);
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#F4F6F7; --surface:#FFFFFF; --surface-2:#EFF2F4; --surface-3:#E5EAED;
+      --border:#E1E6EA; --border-strong:#CCD4DA;
+      --ink:#171A1F; --muted:#586470; --faint:#8A949E;
+      --accent:#4F8F5B; --accent-bright:#438050; --accent-strong:#2F6B3D; --accent-soft:rgba(79,143,91,.14);
+      --on-accent:#FFFFFF;
+      --pri-high:#CB4E36; --pri-high-soft:rgba(203,78,54,.12);
+      --pri-med:#B67F1F;  --pri-med-soft:rgba(182,127,31,.15);
+      --pri-low:#3F6ABF;  --pri-low-soft:rgba(63,106,191,.12);
+      --shadow:0 1px 2px rgba(16,40,30,.06), 0 4px 16px rgba(16,40,30,.07);
+      --shadow-lift:0 10px 34px rgba(16,40,30,.16);
     }
   }
-  :root[data-theme="dark"]{
-    --bg:#0E1613; --surface:#16211C; --surface-2:#1C2823; --surface-3:#243329;
-    --border:#293831; --border-strong:#35473E;
-    --ink:#E7EFEB; --muted:#9DB0A7; --faint:#6E827A;
-    --accent:#2CC091; --accent-strong:#54D3AB; --accent-soft:#12312655;
-    --pri-high:#F0715A; --pri-high-soft:#3a201b;
-    --pri-med:#E7AA4D; --pri-med-soft:#382c14;
-    --pri-low:#6C9BF0; --pri-low-soft:#1c2740;
-    --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.3);
-    --shadow-lift:0 6px 24px rgba(0,0,0,.45);
+  :root[data-theme="light"]{
+    --bg:#F4F6F7; --surface:#FFFFFF; --surface-2:#EFF2F4; --surface-3:#E5EAED;
+    --border:#E1E6EA; --border-strong:#CCD4DA;
+    --ink:#171A1F; --muted:#586470; --faint:#8A949E;
+    --accent:#4F8F5B; --accent-bright:#438050; --accent-strong:#2F6B3D; --accent-soft:rgba(79,143,91,.14);
+    --on-accent:#FFFFFF;
+    --pri-high:#CB4E36; --pri-high-soft:rgba(203,78,54,.12);
+    --pri-med:#B67F1F;  --pri-med-soft:rgba(182,127,31,.15);
+    --pri-low:#3F6ABF;  --pri-low-soft:rgba(63,106,191,.12);
+    --shadow:0 1px 2px rgba(16,40,30,.06), 0 4px 16px rgba(16,40,30,.07);
+    --shadow-lift:0 10px 34px rgba(16,40,30,.16);
   }
 
   *{box-sizing:border-box}
@@ -52,7 +58,7 @@
   /* ---------- Sidebar ---------- */
   .sidebar{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;min-height:0}
   .brand{display:flex;align-items:center;gap:10px;padding:18px 18px 14px}
-  .logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(145deg,var(--accent),#0C815F);display:grid;place-items:center;flex:none;box-shadow:0 2px 8px rgba(18,162,119,.35)}
+  .logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(150deg,var(--brand-green),var(--brand-teal));display:grid;place-items:center;flex:none;box-shadow:0 2px 10px rgba(79,143,91,.4)}
   .logo svg{width:19px;height:19px}
   .brand b{font-size:17px;font-weight:800;letter-spacing:-.02em}
   .nav{padding:6px 10px;display:flex;flex-direction:column;gap:2px}
@@ -84,8 +90,8 @@
   .icon-btn{background:none;border:1px solid var(--border);border-radius:9px;padding:8px;color:var(--muted);display:grid;place-items:center}
   .icon-btn:hover{color:var(--ink);border-color:var(--border-strong)}
   .icon-btn svg{width:17px;height:17px}
-  .btn-add{background:var(--accent);color:#fff;border:none;border-radius:9px;padding:9px 15px;font-weight:700;font-size:13px;display:flex;align-items:center;gap:7px;box-shadow:0 2px 8px rgba(18,162,119,.3)}
-  .btn-add:hover{background:var(--accent-strong)}
+  .btn-add{background:var(--accent);color:var(--on-accent);border:none;border-radius:9px;padding:9px 15px;font-weight:700;font-size:13px;display:flex;align-items:center;gap:7px;box-shadow:0 2px 8px rgba(79,143,91,.3)}
+  .btn-add:hover{background:var(--accent-bright)}
   .btn-add svg{width:16px;height:16px}
 
   .content{flex:1;overflow:auto;min-height:0}
@@ -135,7 +141,7 @@
   .composer textarea{border:1px solid var(--border-strong);border-radius:10px;padding:10px;font-family:inherit;font-size:13.5px;resize:none;background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
   .composer textarea:focus{outline:none;border-color:var(--accent)}
   .composer .row{display:flex;gap:8px}
-  .composer .save{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-weight:700;font-size:13px}
+  .composer .save{background:var(--accent);color:var(--on-accent);border:none;border-radius:8px;padding:7px 14px;font-weight:700;font-size:13px}
   .composer .cancel{background:none;border:none;color:var(--muted);font-weight:700;padding:7px 10px;border-radius:8px}
 
   /* ---------- List ---------- */
@@ -169,7 +175,7 @@
   .drawer.open{transform:none}
   .dr-top{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--border)}
   .dr-top .mark-btn{display:flex;align-items:center;gap:7px;font-weight:700;font-size:13px;border:1px solid var(--border-strong);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 11px}
-  .dr-top .mark-btn.done{background:var(--accent);border-color:var(--accent);color:#fff}
+  .dr-top .mark-btn.done{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
   .dr-body{padding:18px 20px;overflow:auto;display:flex;flex-direction:column;gap:18px}
   .dr-title{font-size:20px;font-weight:800;letter-spacing:-.02em;border:none;background:none;color:var(--ink);width:100%;font-family:inherit;line-height:1.3}
   .dr-title:focus{outline:none}
@@ -200,7 +206,7 @@
 <div class="app">
   <aside class="sidebar" id="sidebar">
     <div class="brand">
-      <span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5c4.7 0 8.5 3.4 8.5 7.4 0 2.8-2 4.6-4.6 4.6-1.7 0-2.6-.7-3.4-.7-.7 0-1 .5-1 1.2 0 .6.3 1 .3 1.7 0 1.4-1.1 2.3-2.7 2.3C5 20 2.5 16 2.5 11.6 2.5 7.1 6.8 3.5 12 3.5Z" fill="#fff"/><circle cx="16.4" cy="9" r="1.5" fill="#0C815F"/></svg></span>
+      <span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5c4.7 0 8.5 3.4 8.5 7.4 0 2.8-2 4.6-4.6 4.6-1.7 0-2.6-.7-3.4-.7-.7 0-1 .5-1 1.2 0 .6.3 1 .3 1.7 0 1.4-1.1 2.3-2.7 2.3C5 20 2.5 16 2.5 11.6 2.5 7.1 6.8 3.5 12 3.5Z" fill="#fff"/><circle cx="16.4" cy="9" r="1.5" fill="#15343A"/></svg></span>
       <b>Chameleon</b>
     </div>
     <nav class="nav" id="nav">
@@ -210,7 +216,7 @@
       <div id="projnav"></div>
     </nav>
     <div class="side-foot">
-      <span class="ava" style="background:#12A277">AK</span>
+      <span class="ava" style="background:#4F8F5B">AK</span>
       <span class="who">Alex K.<small>alex@content-chameleon.com</small></span>
     </div>
   </aside>
@@ -237,21 +243,21 @@
 <script>
 const TODAY = new Date("2026-09-22T00:00:00");
 const users = {
-  alex:  {name:"Alex K.",  init:"AK", color:"#12A277"},
-  maria: {name:"Maria S.", init:"MS", color:"#E1543B"},
-  dmytro:{name:"Dmytro P.",init:"DP", color:"#4E85E6"},
-  olena: {name:"Olena V.", init:"OV", color:"#9C5BE8"},
+  alex:  {name:"Alex K.",  init:"AK", color:"#4F8F5B"},
+  maria: {name:"Maria S.", init:"MS", color:"#E8705A"},
+  dmytro:{name:"Dmytro P.",init:"DP", color:"#6E93D6"},
+  olena: {name:"Olena V.", init:"OV", color:"#6F5A96"},
 };
 const projects = [
-  {id:"web",      name:"Website Redesign",   color:"#12A277"},
-  {id:"outreach", name:"Q4 Outreach Campaign",color:"#4E85E6"},
-  {id:"conf",     name:"Conference Prep",     color:"#D9902A"},
+  {id:"web",      name:"Website Redesign",   color:"#4F8F5B"},
+  {id:"outreach", name:"Q4 Outreach Campaign",color:"#6F5A96"},
+  {id:"conf",     name:"Conference Prep",     color:"#3E8F95"},
 ];
 const sections = [
-  {id:"todo",   name:"To Do",       color:"#8A9A92"},
-  {id:"inprog", name:"In Progress", color:"#D9902A"},
-  {id:"review", name:"In Review",   color:"#4E85E6"},
-  {id:"done",   name:"Done",        color:"#12A277"},
+  {id:"todo",   name:"To Do",       color:"#8A949E"},
+  {id:"inprog", name:"In Progress", color:"#DBA646"},
+  {id:"review", name:"In Review",   color:"#6E93D6"},
+  {id:"done",   name:"Done",        color:"#4F8F5B"},
 ];
 let seq = 100;
 let tasks = [
@@ -346,11 +352,11 @@ function renderMyTasks(c){
   const wrap=el("div","mt");
   const mine=tasks.filter(t=>t.assignee==="alex");
   const buckets=[
-    {key:"over", label:"Overdue", color:"#E1543B", test:t=>t.section!=="done"&&isOver(t.due)},
-    {key:"today",label:"Today",   color:"#D9902A", test:t=>t.section!=="done"&&t.due===fISO(TODAY)},
-    {key:"week", label:"This week",color:"#12A277",test:t=>{const d=days(t.due);return t.section!=="done"&&d>0&&d<7;}},
-    {key:"later",label:"Later",   color:"#4E85E6", test:t=>{const d=days(t.due);return t.section!=="done"&&d>=7;}},
-    {key:"done", label:"Completed",color:"#8A9A92",test:t=>t.section==="done"},
+    {key:"over", label:"Overdue", color:"#E8705A", test:t=>t.section!=="done"&&isOver(t.due)},
+    {key:"today",label:"Today",   color:"#DBA646", test:t=>t.section!=="done"&&t.due===fISO(TODAY)},
+    {key:"week", label:"This week",color:"#4F8F5B",test:t=>{const d=days(t.due);return t.section!=="done"&&d>0&&d<7;}},
+    {key:"later",label:"Later",   color:"#6E93D6", test:t=>{const d=days(t.due);return t.section!=="done"&&d>=7;}},
+    {key:"done", label:"Completed",color:"#8A949E",test:t=>t.section==="done"},
   ];
   buckets.forEach(b=>{
     const items=mine.filter(b.test);if(!items.length)return;
@@ -458,7 +464,7 @@ function renderInbox(c){
     {u:"dmytro",txt:"completed <b>Pre-event LinkedIn teasers</b>",t:"5h"},
     {u:"olena",txt:"assigned you <b>Confirm booth & logistics</b>",t:"1d"},
   ];
-  wrap.appendChild(el("div","bucket-head",`<span class="flag" style="background:#4E85E6"></span>Recent<span class="n">${notes.length}</span>`));
+  wrap.appendChild(el("div","bucket-head",`<span class="flag" style="background:#6E93D6"></span>Recent<span class="n">${notes.length}</span>`));
   notes.forEach(n=>{
     const r=el("div","row");r.style.cursor="default";
     r.innerHTML=`${ava(n.u)}<span class="rtitle" style="font-weight:600">${users[n.u].name} ${n.txt}</span><span class="rmeta"><span class="due">${n.t}</span></span>`;
@@ -536,13 +542,20 @@ $("#addBtn").onclick=()=>{
 };
 $("#menuBtn").onclick=()=>$("#sidebar").classList.toggle("open");
 $("#scrim").onclick=()=>{closeDrawer();$("#sidebar").classList.remove("open");};
+const SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+const MOON='<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>';
+function effectiveDark(){
+  const explicit=document.documentElement.getAttribute("data-theme");
+  if(explicit) return explicit==="dark";
+  return !matchMedia("(prefers-color-scheme: light)").matches; // dark-first: dark unless OS is light
+}
+function syncThemeIcon(){ $("#themeIco").innerHTML = effectiveDark()?SUN:MOON; }
 $("#themeBtn").onclick=()=>{
-  const root=document.documentElement;
-  const dark=root.getAttribute("data-theme")==="dark"||(!root.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme: dark)").matches);
-  root.setAttribute("data-theme",dark?"light":"dark");
+  document.documentElement.setAttribute("data-theme", effectiveDark()?"light":"dark");
+  syncThemeIcon();
 };
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
 
 /* ---------- boot ---------- */
-renderNav();go("mytasks");
+renderNav();go("mytasks");syncThemeIcon();
 </script>
