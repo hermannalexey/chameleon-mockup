@@ -49,7 +49,11 @@
     --shadow-lift:0 10px 34px rgba(16,40,30,.16);
   }
 
+  :root{color-scheme:dark}
+  :root[data-theme="light"]{color-scheme:light}
+  @media (prefers-color-scheme: light){:root:not([data-theme="dark"]){color-scheme:light}}
   *{box-sizing:border-box}
+  [hidden]{display:none!important}
   html,body{height:100%}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
   button{font-family:inherit;cursor:pointer}
@@ -70,7 +74,11 @@
   .nav a:hover{background:var(--surface-2);color:var(--ink)}
   .nav a.active{background:var(--accent-soft);color:var(--accent-strong)}
   .nav a.active .ico{opacity:1}
+  .nav a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
   .proj-dot{width:10px;height:10px;border-radius:3px;flex:none}
+  .nav a.sub-proj{padding:6px 10px 6px 30px;font-size:12.5px}
+  .nav a .sub-ico{width:14px;height:14px;flex:none;opacity:.7;display:grid}
+  .nav a .sub-ico svg{width:14px;height:14px}
   .nav .count{margin-left:auto;font-size:11px;color:var(--faint);font-weight:700}
   .side-foot{margin-top:auto;padding:12px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
   .side-foot .who{font-size:12.5px;font-weight:700}
@@ -142,7 +150,7 @@
   .composer{margin:2px 10px 12px;display:flex;flex-direction:column;gap:8px}
   .composer textarea{border:1px solid var(--border-strong);border-radius:10px;padding:10px;font-family:inherit;font-size:13.5px;resize:none;background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
   .composer textarea:focus{outline:none;border-color:var(--accent)}
-  .composer .row{display:flex;gap:8px}
+  .composer .crow{display:flex;gap:8px}
   .composer .save{background:var(--accent);color:var(--on-accent);border:none;border-radius:8px;padding:7px 14px;font-weight:700;font-size:13px}
   .composer .cancel{background:none;border:none;color:var(--muted);font-weight:700;padding:7px 10px;border-radius:8px}
 
@@ -201,6 +209,7 @@
   .ph-sub{font-size:12px;color:var(--faint);font-weight:700;width:34px;text-align:center}
   .ph-due{font-size:12px;color:var(--muted);font-weight:700;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
   .ph-due svg{width:13px;height:13px;opacity:.7}
+  .ph-due.late{color:var(--pri-high)}
   .subrow{display:flex;align-items:center;gap:11px;padding:9px 14px 9px 48px;border-bottom:1px solid var(--border);background:var(--surface)}
   .subrow:hover{background:var(--surface-2)}
   .subrow.is-done .sub-name{text-decoration:line-through;color:var(--faint)}
@@ -240,7 +249,7 @@
   .tl-dl-cap{position:absolute;top:-4px;transform:translateX(-50%);font-size:9.5px;font-weight:800;color:var(--pri-high);letter-spacing:.03em}
   .tl-bar{position:absolute;top:5px;height:20px;border-radius:6px;display:flex;align-items:center;padding:0 8px;overflow:hidden;box-shadow:var(--shadow)}
   .tl-bar span{font-size:11px;font-weight:800;color:#fff;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.35)}
-  .tl-bar.done{background:var(--accent)}
+  .tl-bar.done{background:var(--brand-teal)}
   .tl-bar.active{background:var(--accent)}
   .tl-bar.locked{background:var(--faint)}
   .tl-bar.shifted{background:var(--pri-med);outline:2px solid var(--pri-med)}
@@ -266,7 +275,8 @@
   .lead-table tbody tr{cursor:pointer}
   .lead-table tbody tr:hover td{background:var(--surface-2)}
   .lead-table tbody tr:last-child td{border-bottom:none}
-  .lead-table td.ln{font-weight:700;display:flex;align-items:center;gap:9px;white-space:nowrap}
+  .lead-table td.ln{font-weight:700;white-space:nowrap}
+  .ln-in{display:flex;align-items:center;gap:9px}
   .lead-table td.muted{color:var(--muted)}
   .lead-table .ovr{color:var(--pri-high);font-weight:700}
   /* Stats */
@@ -304,6 +314,9 @@
   .fline{height:2px;background:var(--border);flex:1;min-width:6px;margin-bottom:26px}
   .fname{font-size:10.5px;font-weight:700;line-height:1.2}
   .fstep:not(.on) .fname{color:var(--faint)}
+  .fstep{cursor:pointer;background:none;border:none;padding:0;font:inherit;color:inherit}
+  .fstep:hover .fdot{border-color:var(--accent)}
+  .fstep:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
   .fdate{font-size:10px;color:var(--faint);font-variant-numeric:tabular-nums}
   .timeline{display:flex;flex-direction:column}
   .tl-item{display:flex;gap:11px;padding-bottom:14px;position:relative}
@@ -314,6 +327,14 @@
   .tl-date{color:var(--faint);font-size:12px;font-weight:700}
   .tl-msg{font-size:12.5px;color:var(--muted);margin-top:2px}
   .tl-ans{font-size:12.5px;color:var(--ink);margin-top:4px;background:var(--surface-2);border-radius:8px;padding:6px 9px}
+  .reply-slot{margin-top:6px}
+  .reply-btn{padding:4px 9px;font-size:12px}
+  .reply-form{display:flex;gap:6px;flex-wrap:wrap}
+  .reply-form input{flex:1 1 160px}
+  .sent{font-size:10px;font-weight:800;padding:1px 6px;border-radius:5px;margin-left:4px;text-transform:uppercase;letter-spacing:.04em}
+  .sent.positive{color:var(--accent-strong);background:var(--accent-soft)}
+  .sent.neutral{color:var(--muted);background:var(--surface-3)}
+  .sent.negative{color:var(--pri-high);background:var(--pri-high-soft)}
   @media(max-width:600px){.fstep{width:52px}.fname{font-size:9.5px}}
   /* CRM shell: toolbar, filters, chips */
   .nav-label .lbl-tag{font-size:9px;font-weight:800;letter-spacing:.04em;color:var(--accent-strong);background:var(--accent-soft);padding:1px 5px;border-radius:5px;margin-left:6px;text-transform:none}
@@ -360,6 +381,31 @@
   .cbox{display:flex;gap:10px;align-items:center;margin-top:6px}
   .cbox input{flex:1;border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-family:inherit;font-size:13px;background:var(--surface-2);color:var(--ink)}
   .cbox input:focus{outline:none;border-color:var(--accent);background:var(--surface)}
+  .cmt{display:flex;gap:10px;padding:7px 0}
+  .cmt-h{font-size:12px;font-weight:700}
+  .cmt-h small{color:var(--faint);font-weight:600;margin-left:6px}
+  .cmt-t{font-size:13px;color:var(--ink);margin-top:2px;line-height:1.45}
+  /* editable drawer fields */
+  .fin{background:var(--surface);border:1px solid var(--border-strong);border-radius:8px;padding:6px 10px;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink);max-width:100%}
+  .fin:focus{outline:none;border-color:var(--accent)}
+  select.fin{appearance:none;padding-right:28px;cursor:pointer;background:var(--surface) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A949E' stroke-width='2.5' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>") no-repeat right 9px center}
+  .part-chip{font-size:11px;font-weight:700;color:var(--muted);background:var(--surface-2);padding:3px 8px;border-radius:6px;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}
+  .next-edit{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .ghost-btn{background:none;border:1px solid var(--border-strong);color:var(--muted);border-radius:8px;padding:6px 11px;font-weight:700;font-size:12.5px}
+  .ghost-btn:hover{color:var(--ink);border-color:var(--accent)}
+  /* create modal */
+  .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-48%);width:460px;max-width:calc(100vw - 32px);max-height:calc(100vh - 32px);overflow:auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-lift);z-index:55;opacity:0;pointer-events:none;transition:.18s}
+  .modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%)}
+  .modal form{padding:18px 20px 20px;display:flex;flex-direction:column;gap:12px}
+  .modal h2{margin:0 0 2px;font-size:17px;font-weight:800;letter-spacing:-.01em}
+  .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mfield{display:flex;flex-direction:column;gap:5px;min-width:0}
+  .mfield>span{font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+  .mfield .fin{width:100%}
+  .mact{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}
+  @media(max-width:480px){.mgrid{grid-template-columns:1fr}}
+  .toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);background:var(--surface-3);color:var(--ink);border:1px solid var(--border-strong);border-radius:10px;padding:10px 16px;font-weight:700;font-size:13px;box-shadow:var(--shadow-lift);opacity:0;pointer-events:none;transition:.2s;z-index:70;max-width:calc(100vw - 32px)}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
 
   @media(max-width:860px){
     .app{grid-template-columns:1fr}
@@ -410,6 +456,8 @@
 
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" aria-hidden="true"></aside>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 const TODAY = new Date("2026-09-22T00:00:00");
@@ -423,7 +471,8 @@ const users = {
   katya: {name:"Katya B.", init:"KB", color:"#4FA9A0"},
 };
 const projects = [
-  {id:"launch",   name:"LinkedIn Launch — Client X", color:"#DBA646", plan:true},
+  // Client projects carry `client`; they sit under that client in the sidebar, not under Internal projects
+  {id:"launch",   name:"LinkedIn Launch — Orbita", color:"#DBA646", plan:true, client:"orbita", deadline:"2026-10-30"},
   {id:"web",      name:"Website Redesign",   color:"#4F8F5B"},
   {id:"outreach", name:"Q4 Outreach Campaign",color:"#6F5A96"},
   {id:"conf",     name:"Conference Prep",     color:"#3E8F95"},
@@ -444,9 +493,9 @@ const plans={
     ]},
     {id:"p2", name:"Strategy development", due:"2026-10-08", subs:[
       {id:"2.1", name:"Define messaging", due:"2026-10-06", owner:"maria", done:true},
-      {id:"2.2", name:"Approve strategy with client", due:"2026-10-08", owner:"katya", done:false, dependsOn:"2.1", priority:"high",
+      {id:"2.2", name:"Approve strategy with client", due:"2026-10-07", owner:"katya", done:false, dependsOn:"2.1", priority:"high",
         desc:"Prepare the strategy deck and get client sign-off on the call. Capture feedback and lock edits."},
-      {id:"2.3", name:"Approve KPIs", due:"2026-10-10", owner:"alex", done:false, dependsOn:"2.2"},
+      {id:"2.3", name:"Approve KPIs", due:"2026-10-08", owner:"alex", done:false, dependsOn:"2.2"},
     ]},
     {id:"p3", name:"Content creation", due:"2026-10-18", subs:[
       {id:"3.1", name:"Write copy",              due:"2026-10-12", owner:"dmytro", done:false},
@@ -470,13 +519,15 @@ let seq = 100;
 let tasks = [
   {id:"w1", project:"web", section:"inprog", title:"Finalize homepage screen 03 copy", assignee:"alex", due:"2026-09-22", priority:"high",
     desc:"One thesis per screen — AI outreach is visible and buyers are allergic. Lock EN, then localize UA.",
-    subs:[{t:"Approve thesis line",done:true},{t:"Localize to UA",done:false},{t:"Proof EN version",done:false}]},
+    subs:[{t:"Approve thesis line",done:true},{t:"Localize to UA",done:false},{t:"Proof EN version",done:false}],
+    comments:[{u:"olena",t:"2026-09-21",txt:"Real “Your company” screenshot is cleared — use it on this screen."}]},
   {id:"w2", project:"web", section:"todo", title:"Wire up Kwiga course widget", assignee:"dmytro", due:"2026-09-24", priority:"med", desc:"Embed Kwiga widget on the site (replaces SendPulse link-out).", subs:[]},
   {id:"w3", project:"web", section:"review", title:"QA mobile layout at 375px", assignee:"alex", due:"2026-09-21", priority:"high", desc:"Check gutters, board scroll, and safe-area insets on iPhone.", subs:[]},
   {id:"w4", project:"web", section:"done", title:"Retire old newspaper landing", assignee:"olena", due:"2026-09-20", priority:"low", desc:"Removed locally, confirm nothing links to it.", subs:[]},
   {id:"w5", project:"web", section:"todo", title:"Sync Obsidian → site texts", assignee:"alex", due:"2026-09-26", priority:"low", desc:"Diff UA homepage copy vs _texts-last-sync, apply, refresh.", subs:[]},
 
-  {id:"o1", project:"outreach", section:"inprog", title:"Build ICP list — fintech UA", assignee:"maria", due:"2026-09-23", priority:"med", desc:"Target 300 accounts, dedupe against CRM.", subs:[]},
+  {id:"o1", project:"outreach", section:"inprog", title:"Build ICP list — fintech UA", assignee:"maria", due:"2026-09-23", priority:"med", desc:"Target 300 accounts, dedupe against CRM.", subs:[],
+    comments:[{u:"maria",t:"2026-09-22",txt:"First 180 accounts are in — deduping against the CRM now."}]},
   {id:"o2", project:"outreach", section:"todo", title:"Draft LinkedIn sequence", assignee:"alex", due:"2026-09-25", priority:"med", desc:"5-touch sequence, no AI-obvious phrasing.", subs:[{t:"Hook message",done:false},{t:"Value follow-up",done:false}]},
   {id:"o3", project:"outreach", section:"inprog", title:"Warm up sending domains", assignee:"dmytro", due:"2026-09-22", priority:"high", desc:"Ramp volume gradually to protect deliverability.", subs:[]},
   {id:"o4", project:"outreach", section:"todo", title:"Define Q4 offer & pricing", assignee:"alex", due:"2026-10-02", priority:"med", desc:"Bundles ~15% off sum-of-parts.", subs:[]},
@@ -504,6 +555,7 @@ const clients=[
   {id:"northwind", name:"Northwind Capital", short:"Northwind", color:"#4F8F5B", industry:"Fintech / VC"},
   {id:"payflow",   name:"Payflow",           short:"Payflow",   color:"#6F5A96", industry:"Payments"},
   {id:"kvitly",    name:"Kvitly HR",         short:"Kvitly",    color:"#3E8F95", industry:"HR SaaS"},
+  {id:"orbita",    name:"Orbita Logistics",  short:"Orbita",    color:"#DBA646", industry:"Logistics SaaS", onboarding:"2026-10-19"},
 ];
 const client=id=>clients.find(c=>c.id===id);
 // Ambassadors = the client-owned LinkedIn profiles we operate. A client can run several.
@@ -513,6 +565,7 @@ const ambassadors=[
   {id:"pf_mn", client:"payflow",   name:"Marek Nowak",    role:"Head of Sales",    init:"MN"},
   {id:"pf_iv", client:"payflow",   name:"Iryna Volk",     role:"BD Lead",          init:"IV"},
   {id:"kv_oh", client:"kvitly",    name:"Olha Hnatiuk",   role:"Founder",          init:"OH"},
+  {id:"or_th", client:"orbita",    name:"Taras Hordiienko",role:"CEO",             init:"TH"},
 ];
 const amb=id=>ambassadors.find(a=>a.id===id);
 let leads=[
@@ -558,27 +611,26 @@ let leads=[
 ];
 // Same person appearing under other clients (leads are project-scoped, not globally unique)
 const dupOf=l=>leads.filter(x=>x.id!==l.id&&x.name===l.name).map(x=>client(x.client).short);
-// Daily plan-vs-fact targets (Statistics tab)
-const stats={
-  ambassador:"karina",
-  rows:[
-    {group:"Lead Generation", label:"Requests sent",  plan:400, fact:284, pct:false},
-    {group:"Lead Generation", label:"Accepted",       plan:120, fact:91,  pct:false},
-    {group:"Lead Generation", label:"Withdrawn",      plan:0,   fact:12,  pct:false},
-    {group:"Lead Generation", label:"Inbound accepted",plan:20, fact:14,  pct:false},
-    {group:"Lead Nurturing",  label:"Messages / touches",plan:400,fact:262,pct:false},
-    {group:"Lead Nurturing",  label:"Answers",        plan:120, fact:78,  pct:false},
-    {group:"Lead Nurturing",  label:"MQLs",           plan:8,   fact:5,   pct:false},
-    {group:"Engagement",      label:"Comments written",plan:20, fact:16,  pct:false},
-  ],
-  outreach:[
-    {label:"Reply rate",        val:"29.8%"},
-    {label:"Positive replies",  val:"46"},
-    {label:"Negative replies",  val:"32"},
-    {label:"Connections growth",val:"+318"},
-    {label:"Follower growth",   val:"+204"},
-    {label:"MQLs",              val:"5"},
-  ],
+// Monthly plan-vs-fact (Statistics tab). Kept PER PROFILE, so every client / profile filter
+// aggregates real numbers. MQLs are never stored — they're counted from the leads themselves.
+const statMetrics=[
+  {group:"Lead Generation", key:"req", label:"Requests sent"},
+  {group:"Lead Generation", key:"acc", label:"Accepted"},
+  {group:"Lead Generation", key:"wd",  label:"Withdrawn"},
+  {group:"Lead Generation", key:"inb", label:"Inbound accepted"},
+  {group:"Lead Nurturing",  key:"msg", label:"Messages / touches"},
+  {group:"Lead Nurturing",  key:"ans", label:"Answers"},
+  {group:"Lead Nurturing",  key:"mql", label:"MQLs"},
+  {group:"Engagement",      key:"com", label:"Comments written"},
+];
+const P=(req,acc,wd,inb,msg,ans,mql,com)=>({req,acc,wd,inb,msg,ans,mql,com});
+const profileStats={
+  nw_jw:{plan:P(100,30,0,5,100,30,2,5), fact:P(81,27,3,4,74,24,0,5)},
+  nw_er:{plan:P( 80,24,0,4, 80,24,2,4), fact:P(52,17,2,3,49,15,0,4)},
+  pf_mn:{plan:P( 80,24,0,4, 80,24,2,4), fact:P(60,18,3,3,55,14,0,3)},
+  pf_iv:{plan:P( 60,18,0,3, 60,18,1,3), fact:P(41,13,2,2,37,11,0,2)},
+  kv_oh:{plan:P( 80,24,0,4, 80,24,1,4), fact:P(50,16,2,2,47,14,0,2)},
+  or_th:{plan:P(  0, 0,0,0,  0, 0,0,0), fact:P( 0, 0,0,0, 0, 0,0,0)},   // outreach starts at launch
 };
 
 const state = {view:"mytasks", layout:"board", selected:null, selectedLead:null, selectedPlanSub:null, composeFor:null, crmScope:"all", crmTab:"pipeline", crmAmb:"all", delayPhase:"p2", delayDays:0};
@@ -586,8 +638,30 @@ const state = {view:"mytasks", layout:"board", selected:null, selectedLead:null,
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
 const el = (t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const proj = id => projects.find(p=>p.id===id);
 const sec = id => sections.find(s=>s.id===id);
+function addDays(iso,n){const d=new Date(iso+"T00:00:00");d.setDate(d.getDate()+n);return fISO(d);}
+let toastTimer;
+function toast(msg){const t=$("#toast");t.innerHTML=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2600);}
+// Funnel stage -> key used for its entering date
+const DKEY={awareness:"aware",engagement:"engage",qualification:"qual",interest:"interest",mql:"mql"};
+// Outreach cadence: after logging a touch, the next one is scheduled automatically
+const NEXT_TASKS=["Connection request","Withdraw check","First message","Ping","2nd message","Comment","Share case study","Book call","Send calendar"];
+const CADENCE={"Connection request":["Withdraw check",5],"Withdraw check":["Connection request",2],"First message":["Ping",3],"Ping":["2nd message",3],
+  "2nd message":["Ping",4],"Comment":["Ping",2],"Share case study":["Book call",2],"Book call":["Send calendar",1],"Send calendar":["Ping",3],"Reply":["Ping",3]};
+const LOST_REASONS=["No budget / timing","Not the decision maker","No response","Using a competitor","Not TA"];
+// Stats fill themselves: actions in the CRM bump the plan-vs-fact counters
+function statFact(key,delta,ambId){const s=profileStats[ambId];if(s)s.fact[key]=Math.max(0,s.fact[key]+delta);}
+// Sum plan/fact over the profiles in the current CRM scope; MQL fact = leads actually at MQL
+function scopeStats(){
+  const ids=ambassadors.filter(a=>(state.crmScope==="all"||a.client===state.crmScope)&&(state.crmAmb==="all"||a.id===state.crmAmb)).map(a=>a.id);
+  const sum={plan:P(0,0,0,0,0,0,0,0),fact:P(0,0,0,0,0,0,0,0)};
+  ids.forEach(id=>statMetrics.forEach(m=>{sum.plan[m.key]+=profileStats[id].plan[m.key];sum.fact[m.key]+=profileStats[id].fact[m.key];}));
+  sum.fact.mql=leads.filter(l=>l.stage==="mql"&&ids.includes(l.ambassador)).length;
+  return sum;
+}
+const pctOf=(a,b)=>b?`${(a/b*100).toFixed(1)}%`:"—";
 function fmtDue(d){
   if(!d) return "";
   const dt = new Date(d+"T00:00:00");
@@ -635,14 +709,12 @@ function renderNav(){
     const on=state.view==="crm"&&state.crmScope===cl.id;
     const a=el("a",on?"active":"",`<span class="proj-dot" style="background:${cl.color}"></span>${cl.name}<span class="count">${active}</span>`);
     a.onclick=()=>goCRM(cl.id,"pipeline");cn.appendChild(a);
+    // that client's delivery projects, nested under it
+    projects.filter(p=>p.client===cl.id).forEach(p=>cn.appendChild(projLink(p,true)));
   });
-  // Internal projects (tasks only)
+  // Internal projects (tasks only, no client)
   const pn=$("#projnav");pn.innerHTML="";
-  projects.forEach(p=>{
-    const open=p.plan?planOpenCount(p.id):tasks.filter(t=>t.project===p.id&&t.section!=="done").length;
-    const a=el("a",state.view===p.id?"active":"",`<span class="proj-dot" style="background:${p.color}"></span>${p.name}<span class="count">${open}</span>`);
-    a.dataset.view=p.id;a.onclick=()=>go(p.id);pn.appendChild(a);
-  });
+  projects.filter(p=>!p.client).forEach(p=>pn.appendChild(projLink(p,false)));
   // Top links (My Tasks / Inbox)
   document.querySelectorAll('#nav>a[data-view]').forEach(a=>{
     a.classList.toggle("active",a.dataset.view===state.view);
@@ -654,6 +726,15 @@ function renderNav(){
     a.onclick=()=>goCRM("all",a.dataset.crm);
   });
   const mc=$("#mqlCount");if(mc)mc.textContent=leads.filter(l=>l.stage==="mql").length;
+  document.querySelectorAll("#nav a").forEach(a=>{a.tabIndex=0;a.setAttribute("role","link");});
+}
+
+function projLink(p,nested){
+  const open=p.plan?planOpenCount(p.id):tasks.filter(t=>t.project===p.id&&t.section!=="done").length;
+  const label=nested?p.name.split(" — ")[0]:p.name;
+  const a=el("a",(state.view===p.id?"active ":"")+(nested?"sub-proj":""),`${nested?`<span class="sub-ico">${PLAN_ICO}</span>`:`<span class="proj-dot" style="background:${p.color}"></span>`}${esc(label)}<span class="count">${open}</span>`);
+  a.dataset.view=p.id;a.onclick=()=>go(p.id);
+  return a;
 }
 
 /* ---------- routing ---------- */
@@ -663,14 +744,21 @@ function go(view){
   const isProj = !!proj(view);
   $("#seg").hidden = !isProj;
   if(isProj) buildSeg(proj(view));   // Plan|Timeline for phased projects, List|Board otherwise
-  const t=$("#viewTitle"), sub=$("#viewSub"), pd=$("#pdot");
-  const simple={ mytasks:["My Tasks",""], inbox:["Inbox",""] };
-  if(simple[view]){t.textContent=simple[view][0];sub.textContent=simple[view][1];pd.style.display="none";}
-  else{const p=proj(view);t.textContent=p.name;pd.style.display="";pd.style.background=p.color;
-       if(p.plan){const ps=planStats(p.id);sub.textContent=`${ps.total-ps.done} open · ${ps.pct}% done`;}
-       else{const open=tasks.filter(x=>x.project===p.id&&x.section!=="done").length;sub.textContent=open+" open";}}
+  const t=$("#viewTitle"), pd=$("#pdot");
+  const simple={ mytasks:"My Tasks", inbox:"Inbox" };
+  if(simple[view]){t.textContent=simple[view];pd.style.display="none";}
+  else{const p=proj(view);t.textContent=p.name;pd.style.display="";pd.style.background=p.color;}
   renderNav();render();
   $("#content").scrollTop=0;
+}
+// Top-bar subtitle + primary button follow the current view (and stay live as tasks change)
+function refreshHeader(){
+  const sub=$("#viewSub"), p=proj(state.view);
+  if(state.view==="mytasks"){const n=myItems().filter(x=>x.section!=="done").length;sub.textContent=`${n} open`;}
+  else if(state.view==="inbox") sub.textContent="";
+  else if(p&&p.plan){const ps=planStats(p.id);sub.textContent=`${p.client?client(p.client).name+" · ":""}${ps.total-ps.done} open · ${ps.pct}% done`;}
+  else if(p){sub.textContent=tasks.filter(x=>x.project===p.id&&x.section!=="done").length+" open";}
+  $("#addBtn .lbl").textContent=state.view==="crm"?"Add lead":"Add task";
 }
 // CRM routing: scope = "all" (admin, union) or a client id; tab = pipeline/leads/mqls/stats
 function goCRM(scope, tab){
@@ -686,6 +774,7 @@ function goCRM(scope, tab){
 
 /* ---------- render dispatch ---------- */
 function render(){
+  refreshHeader();
   const c=$("#content");c.innerHTML="";
   if(state.view==="mytasks") return renderMyTasks(c);
   if(state.view==="inbox")   return renderInbox(c);
@@ -697,13 +786,21 @@ function render(){
 }
 
 /* ---------- My Tasks ---------- */
-function renderMyTasks(c){
-  const wrap=el("div","mt");
+// Everything assigned to me: project tasks + phased-plan subtasks + my leads' next actions
+function myItems(){
   const mine=tasks.filter(t=>t.assignee==="alex");
+  const planItems=[];
+  projects.filter(p=>p.plan).forEach(p=>planFor(p.id).forEach((ph,i)=>ph.subs.forEach(s=>{
+    if(s.owner==="alex")planItems.push({_plan:{pid:p.id,ph,idx:i,s},section:s.done?"done":"todo",due:s.due,title:s.name});
+  })));
   // Weave: each of my active leads' NEXT action becomes a to-do here
   const leadItems=leads.filter(l=>l.owner==="alex"&&l.deal==="open"&&l.next&&l.next.date&&l.next.task)
     .map(l=>({_lead:l, section:"todo", due:l.next.date, title:l.next.task}));
-  const all=[...mine,...leadItems];
+  return [...mine,...planItems,...leadItems];
+}
+function renderMyTasks(c){
+  const wrap=el("div","mt");
+  const all=myItems().sort((a,b)=>days(a.due)-days(b.due));
   const buckets=[
     {key:"over", label:"Overdue", color:"#E8705A", test:t=>t.section!=="done"&&isOver(t.due)},
     {key:"today",label:"Today",   color:"#DBA646", test:t=>t.section!=="done"&&t.due===fISO(TODAY)},
@@ -715,15 +812,30 @@ function renderMyTasks(c){
     const items=all.filter(b.test);if(!items.length)return;
     const h=el("div","bucket-head",`<span class="flag" style="background:${b.color}"></span>${b.label}<span class="n">${items.length}</span>`);
     wrap.appendChild(h);
-    items.forEach(t=>wrap.appendChild(t._lead?leadRow(t):myRow(t)));
+    items.forEach(t=>wrap.appendChild(t._lead?leadRow(t):t._plan?planRow(t):myRow(t)));
   });
   c.appendChild(wrap);
+}
+// A phased-plan subtask in My Tasks, with "Part of" context and its lock state
+function planRow(item){
+  const {pid,ph,idx,s}=item._plan, p=proj(pid), plan=planFor(pid);
+  const act=subActionable(plan,idx,s);
+  const r=el("div","row"+(s.done?" is-done":""));
+  const box=s.done?`<span class="chk done">${CHECK}</span>`:act?`<span class="chk">${CHECK}</span>`:`<span class="sublock" title="Waiting on an earlier step">${LOCK}</span>`;
+  r.innerHTML=`${box}<span class="rtitle">${esc(s.name)}</span>
+    <span class="rmeta">
+      <span class="part-chip" title="Part of ${esc(p.name)} › ${esc(ph.name)}">Part of: ${esc(p.name.split(" — ")[0])} › ${esc(ph.name)}</span>
+      ${s.due?`<span class="due ${isOver(s.due)&&!s.done?"over":""}">${CAL}${fmtDue(s.due)}</span>`:""}
+    </span>`;
+  const chk=r.querySelector(".chk");if(chk)chk.onclick=e=>{e.stopPropagation();toggleSub(pid,s);};
+  r.onclick=()=>openPlanTask(pid,s.id);
+  return r;
 }
 function myRow(t){
   const p=proj(t.project);
   const r=el("div","row"+(t.section==="done"?" is-done":""));
   r.innerHTML=`<span class="chk ${t.section==="done"?"done":""}">${CHECK}</span>
-    <span class="rtitle">${t.title}</span>
+    <span class="rtitle">${esc(t.title)}</span>
     <span class="rmeta">
       <span class="proj" style="background:${p.color}">${p.name.split(" ")[0]}</span>
       ${t.due?`<span class="due ${isOver(t.due)&&t.section!=="done"?"over":""}">${CAL}${fmtDue(t.due)}</span>`:""}
@@ -738,7 +850,7 @@ function leadRow(item){
   const l=item._lead, s=leadStage(l.stage);
   const r=el("div","row");
   r.innerHTML=`<span class="chk">${CHECK}</span>
-    <span class="rtitle">${item.title} · <span style="color:var(--muted);font-weight:600">${l.name}</span></span>
+    <span class="rtitle">${esc(item.title)} · <span style="color:var(--muted);font-weight:600">${esc(l.name)}</span></span>
     <span class="rmeta">
       <span class="tag-crm">${OUTREACH_ICO}${client(l.client).short}</span>
       <span class="stage-pill" style="color:${s.color};background:${s.color}22">${s.name}</span>
@@ -758,10 +870,46 @@ const leadStage=id=>leadStages.find(s=>s.id===id);
 const dealPill=d=>{const M={open:["Open","var(--muted)"],won:["Won","var(--accent-strong)"],lost:["Lost","var(--pri-high)"]};const x=M[d];return `<span class="deal ${d}">${x[0]}</span>`;};
 function fmtDate(d){return d?new Date(d+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):"—";}
 function advanceNext(l){
-  // "did this touch" — log it and clear the next action (frees it from My Tasks)
-  if(l.next&&l.next.task){ l.touches.push({date:fISO(TODAY),task:l.next.task,msg:l.strategy,answer:""}); l.last={date:fISO(TODAY),task:l.next.task}; l.next={date:"",task:""}; }
+  // "did this touch" — log it, feed the stats, and schedule the next touch from the cadence
+  if(!(l.next&&l.next.task))return;
+  const doneTask=l.next.task, today=fISO(TODAY);
+  l.touches.push({date:today,task:doneTask,msg:l.strategy,answer:""}); l.last={date:today,task:doneTask};
+  statFact(doneTask==="Connection request"?"req":doneTask==="Comment"?"com":"msg",1,l.ambassador);
+  const nx=CADENCE[doneTask];
+  l.next=nx?{task:nx[0],date:addDays(today,nx[1])}:{date:"",task:""};
   renderNav();render();
   if(state.selectedLead===l.id) openLead(l.id);
+  toast(`Logged “${esc(doneTask)}” · ${esc(l.name)}${nx?` — next: ${esc(nx[0])}, ${fmtDue(l.next.date)}`:""}`);
+}
+// The prospect answered: record it, count it in Answers, and a reply means the lead is engaging
+function logReply(l,idx,text,sentiment){
+  const t=l.touches[idx]; if(!t||t.answer)return;
+  t.answer=text; t.sentiment=sentiment;
+  statFact("ans",1,l.ambassador);
+  const order=leadStages.map(s=>s.id), before=order.indexOf(l.stage)<order.indexOf("engagement");
+  if(before&&sentiment!=="negative"&&l.deal==="open"){setStage(l,"engagement");toast(`Reply logged · ${esc(l.name)} moved to Engagement`);}
+  else{renderNav();render();openLead(l.id);toast(sentiment==="negative"?`Negative reply logged — consider marking ${esc(l.name)} as Lost`:`Reply logged · ${esc(l.name)}`);}
+}
+// Move a lead to a funnel stage: stamps entering dates, handles MQL ⇄ Won, keeps stats in step
+function setStage(l,sid){
+  if(l.stage===sid)return;
+  const order=leadStages.map(s=>s.id), ni=order.indexOf(sid), wasMql=l.stage==="mql";
+  l.stage=sid;
+  order.forEach((id,i)=>{const k=DKEY[id];if(!k)return;
+    if(i>ni)delete l.dates[k];                       // moved back: later stages not reached any more
+    else if(i===ni)l.dates[k]=fISO(TODAY);           // entering today
+    else if(!l.dates[k])l.dates[k]=fISO(TODAY);});   // skipped stages count as entered today
+  if(ni>0&&l.statusLG!=="accepted")l.statusLG="accepted";
+  if(sid==="mql"){l.deal="won";l.next={date:"",task:""};if(!l.details)l.details="Qualified — ready for hand-off to the client's sales team.";
+    toast(`🎉 ${esc(l.name)} is an MQL — deal marked Won and added to the hand-off list`);}
+  else if(wasMql){l.deal="open";}
+  renderNav();render();
+  if(state.selectedLead===l.id)openLead(l.id);
+}
+function setDeal(l,deal){
+  if(deal==="lost"){l.deal="lost";l.lost=l.lost||LOST_REASONS[0];l.next={date:"",task:""};}
+  else{l.deal=l.stage==="mql"?"won":"open";delete l.lost;if(l.deal==="open"&&!l.next.task)l.next={task:"Ping",date:fISO(TODAY)};}
+  renderNav();render();openLead(l.id);
 }
 
 /* ---- CRM shell: toolbar (tabs + filters) over a scoped body ---- */
@@ -816,8 +964,7 @@ function pipelineBody(c,scoped){
     col.ondragover=e=>{e.preventDefault();col.classList.add("drop");};
     col.ondragleave=()=>col.classList.remove("drop");
     col.ondrop=e=>{e.preventDefault();col.classList.remove("drop");const id=e.dataTransfer.getData("leadId");const l=leads.find(x=>x.id===id);
-      if(l){l.stage=s.id; const dk={awareness:"aware",engagement:"engage",qualification:"qual",interest:"interest",mql:"mql"}[s.id]; if(dk)l.dates[dk]=fISO(TODAY);
-        if(s.id==="mql")l.deal="won"; renderNav();render();}};
+      if(l)setStage(l,s.id);};
     board.appendChild(col);
   });
   c.appendChild(board);
@@ -825,9 +972,9 @@ function pipelineBody(c,scoped){
 function leadCard(l){
   const cd=el("div","card lead");cd.draggable=true;
   const chips=(state.crmScope==="all"?clChip(l.client):"")+dupBadge(l);
-  const nextBit=l.next&&l.next.task?`<span class="due ${isOver(l.next.date)?"over":""}">${CAL}${l.next.task} · ${fmtDue(l.next.date)}</span>`:`<span class="subc">${dealPill(l.deal)}</span>`;
+  const nextBit=l.next&&l.next.task?`<span class="due ${isOver(l.next.date)?"over":""}">${CAL}${esc(l.next.task)} · ${fmtDue(l.next.date)}</span>`:`<span class="subc">${dealPill(l.deal)}</span>`;
   cd.innerHTML=`<div class="ct">${ava(l.owner,true)}
-      <div><div class="ctitle">${l.name}</div><div class="lead-sub">${l.title} · ${l.company}</div></div></div>
+      <div><div class="ctitle">${esc(l.name)}</div><div class="lead-sub">${esc(l.title)} · ${esc(l.company)}</div></div></div>
     ${chips?`<div class="chips">${chips}</div>`:""}
     <div class="meta">${nextBit}<span class="spacer"></span></div>`;
   cd.querySelector(".ctitle").onclick=()=>openLead(l.id);
@@ -848,17 +995,19 @@ function leadsBody(c,scoped){
   scoped.forEach(l=>{
     const s=leadStage(l.stage), a=amb(l.ambassador);
     const tr=el("tr");
-    tr.innerHTML=`<td class="ln">${ava(l.owner,true)}${l.name}${dupBadge(l)}</td>
+    tr.innerHTML=`<td class="ln"><div class="ln-in">${ava(l.owner,true)}${esc(l.name)}${dupBadge(l)}</div></td>
       ${admin?`<td>${clChip(l.client)}</td>`:""}
       <td class="muted">${a?a.name:"—"}</td>
-      <td>${l.title}</td><td>${l.company}</td>
+      <td>${esc(l.title)}</td><td>${esc(l.company)}</td>
       <td><span class="stage-pill" style="color:${s.color};background:${s.color}22">${s.name}</span></td>
       <td>${users[l.owner].name.split(" ")[0]}</td>
       <td class="muted">${l.next&&l.next.task?`${l.next.task} · <span class="${isOver(l.next.date)&&l.deal==='open'?'ovr':''}">${fmtDate(l.next.date)}</span>`:"—"}</td>
       <td>${dealPill(l.deal)}</td>`;
     tr.onclick=()=>openLead(l.id);tb.appendChild(tr);
   });
-  tbl.appendChild(tb);wrap.appendChild(tbl);c.appendChild(wrap);
+  tbl.appendChild(tb);wrap.appendChild(tbl);
+  if(!scoped.length)wrap.appendChild(el("div","empty","No leads in this scope yet — use “Add lead” to start."));
+  c.appendChild(wrap);
 }
 
 /* ---- MQLs (handoff list) ---- */
@@ -870,7 +1019,7 @@ function mqlsBody(c,scoped){
   items.forEach(l=>{
     const r=el("div","row");
     r.innerHTML=`${ava(l.owner)}
-      <span class="rtitle" style="font-weight:700">${l.name} <span style="color:var(--muted);font-weight:600">· ${l.title}, ${l.company}</span><div class="lead-sub">${l.details||""}</div></span>
+      <span class="rtitle" style="font-weight:700">${esc(l.name)} <span style="color:var(--muted);font-weight:600">· ${esc(l.title)}, ${esc(l.company)}</span><div class="lead-sub">${esc(l.details)}</div></span>
       <span class="rmeta">${clChip(l.client)}<span class="due">${CAL}${fmtDate(l.dates.mql)}</span>${dealPill(l.deal)}</span>`;
     r.onclick=()=>openLead(l.id);wrap.appendChild(r);
   });
@@ -883,9 +1032,15 @@ function statsBody(c,scoped){
   const active=scoped.filter(l=>l.deal==="open"&&l.stage!=="mql").length;
   const mql=scoped.filter(l=>l.stage==="mql").length;
   const lost=scoped.filter(l=>l.deal==="lost").length;
-  wrap.appendChild(el("div","stats-h",state.crmScope==="all"?"Agency totals — all clients":`${client(state.crmScope).name} — totals`));
+  const st=scopeStats(), cl=state.crmScope==="all"?null:client(state.crmScope);
+  const profTxt=state.crmAmb==="all"?"":` · ${amb(state.crmAmb).name}`;
+  wrap.appendChild(el("div","stats-h",(cl?`${cl.name} — totals`:"Agency totals — all clients")+profTxt));
+  if(cl&&cl.onboarding&&!st.plan.req){
+    wrap.appendChild(el("div","plan-banner",`🚀 <b>${esc(cl.name)}</b> is onboarding — outreach starts <b>${fmtDate(cl.onboarding)}</b> with the launch plan. Stats appear once the first requests go out.`));
+    c.appendChild(wrap);return;
+  }
   const kpis=el("div","kpi-row");
-  [["Active leads",active],["MQLs",mql],["Lost",lost],["Reply rate","29.8%"],["Conn. growth","+318"]].forEach(([lbl,v])=>
+  [["Active leads",active],["MQLs",mql],["Lost",lost],["Reply rate",pctOf(st.fact.ans,st.fact.msg)],["Acceptance",pctOf(st.fact.acc,st.fact.req)]].forEach(([lbl,v])=>
     kpis.appendChild(el("div","kpi",`<div class="kv">${v}</div><div class="kl">${lbl}</div>`)));
   wrap.appendChild(kpis);
   wrap.appendChild(el("div","stats-h","Pipeline by stage"));
@@ -894,26 +1049,30 @@ function statsBody(c,scoped){
   leadStages.forEach(s=>{const n=scoped.filter(l=>l.stage===s.id&&l.deal!=="lost").length;
     fb.appendChild(el("div","fb-row",`<span class="fb-label">${s.name}</span><div class="bar"><span style="width:${Math.round(n/maxc*100)}%;background:${s.color}"></span></div><span class="fb-n tnum">${n}</span>`));});
   wrap.appendChild(fb);
-  if(state.crmScope==="all"){
+  if(state.crmScope==="all"&&state.crmAmb==="all"){
     wrap.appendChild(el("div","stats-h","By client"));
     const tbl=el("table","stat-table");
-    tbl.innerHTML=`<thead><tr><th>Client</th><th>Active</th><th>MQLs</th><th>Lost</th></tr></thead>`;
+    tbl.innerHTML=`<thead><tr><th>Client</th><th>Active</th><th>MQLs</th><th>Lost</th><th>Reply rate</th></tr></thead>`;
     const tb=el("tbody");
     clients.forEach(cl=>{const cs=leads.filter(l=>l.client===cl.id);const tr=el("tr");
+      const f={msg:0,ans:0};ambassadors.filter(a=>a.client===cl.id).forEach(a=>{f.msg+=profileStats[a.id].fact.msg;f.ans+=profileStats[a.id].fact.ans;});
       tr.innerHTML=`<td>${clChip(cl.id)}</td><td class="tnum">${cs.filter(l=>l.deal==="open"&&l.stage!=="mql").length}</td>
-        <td class="tnum">${cs.filter(l=>l.stage==="mql").length}</td><td class="tnum">${cs.filter(l=>l.deal==="lost").length}</td>`;
+        <td class="tnum">${cs.filter(l=>l.stage==="mql").length}</td><td class="tnum">${cs.filter(l=>l.deal==="lost").length}</td>
+        <td class="tnum">${cl.onboarding&&!f.msg?`<span style="color:var(--faint)">starts ${fmtDate(cl.onboarding)}</span>`:pctOf(f.ans,f.msg)}</td>`;
       tr.style.cursor="pointer";tr.onclick=()=>goCRM(cl.id,"stats");tb.appendChild(tr);});
     tbl.appendChild(tb);wrap.appendChild(tbl);
-  }else{
-    wrap.appendChild(el("div","stats-h","Daily scope — plan vs fact"));
-    let lastGroup="";const tbl=el("table","stat-table");
-    tbl.innerHTML=`<thead><tr><th>Metric</th><th>Plan</th><th>Fact</th><th style="width:34%">Progress</th></tr></thead>`;
-    const tb=el("tbody");
-    stats.rows.forEach(r=>{if(r.group!==lastGroup){const g=el("tr","grp");g.innerHTML=`<td colspan="4">${r.group}</td>`;tb.appendChild(g);lastGroup=r.group;}
-      const pctv=r.plan>0?Math.min(100,Math.round(r.fact/r.plan*100)):0;const good=r.label==="Withdrawn"?pctv<50:pctv>=70;
-      const tr=el("tr");tr.innerHTML=`<td>${r.label}</td><td class="tnum">${r.plan}</td><td class="tnum">${r.fact}</td><td><div class="bar"><span style="width:${pctv}%;background:${good?'var(--accent)':'var(--pri-med)'}"></span></div></td>`;tb.appendChild(tr);});
-    tbl.appendChild(tb);wrap.appendChild(tbl);
   }
+  wrap.appendChild(el("div","stats-h","This month — plan vs fact"));
+  let lastGroup="";const tbl=el("table","stat-table");
+  tbl.innerHTML=`<thead><tr><th>Metric</th><th>Plan</th><th>Fact</th><th style="width:34%">Progress</th></tr></thead>`;
+  const tb=el("tbody");
+  statMetrics.forEach(m=>{if(m.group!==lastGroup){const g=el("tr","grp");g.innerHTML=`<td colspan="4">${m.group}</td>`;tb.appendChild(g);lastGroup=m.group;}
+    const plan=st.plan[m.key], fact=st.fact[m.key];
+    // Withdrawn has no target: show it as a share of requests, lower is better
+    const pctv=m.key==="wd"?Math.min(100,Math.round(fact/Math.max(1,st.fact.req)*100)):plan>0?Math.min(100,Math.round(fact/plan*100)):0;
+    const good=m.key==="wd"?pctv<10:pctv>=70;
+    const tr=el("tr");tr.innerHTML=`<td>${m.label}</td><td class="tnum">${m.key==="wd"?"—":plan}</td><td class="tnum">${fact}</td><td><div class="bar"><span style="width:${pctv}%;background:${good?'var(--accent)':'var(--pri-med)'}"></span></div></td>`;tb.appendChild(tr);});
+  tbl.appendChild(tb);wrap.appendChild(tbl);
   wrap.appendChild(el("div","stats-note","In Chameleon these fill automatically as leads move through the pipeline — no manual daily entry."));
   c.appendChild(wrap);
 }
@@ -921,22 +1080,32 @@ function statsBody(c,scoped){
 /* ---- Lead drawer ---- */
 function openLead(id){
   const l=leads.find(x=>x.id===id);if(!l)return;
-  state.selectedLead=id;
+  state.selected=null;state.selectedPlanSub=null;state.selectedLead=id;
   const s=leadStage(l.stage);
   const steps=leadStages.filter(x=>x.id!=="connecting");
-  const dkey={awareness:"aware",engagement:"engage",qualification:"qual",interest:"interest",mql:"mql"};
   const curIdx=steps.findIndex(x=>x.id===l.stage);
   const funnel=steps.map((x,i)=>{
-    const done=l.dates[dkey[x.id]];
+    const done=l.dates[DKEY[x.id]];
     const on=i<=curIdx;
-    return `<div class="fstep ${on?'on':''}"><span class="fdot" style="${on?`background:${x.color};border-color:${x.color}`:''}"></span>
-      <div class="fmeta"><div class="fname">${x.name}</div><div class="fdate">${done?fmtDate(done):"—"}</div></div></div>`;
+    return `<button class="fstep ${on?'on':''}" data-stage="${x.id}" title="Move to ${x.name}"><span class="fdot" style="${on?`background:${x.color};border-color:${x.color}`:''}"></span>
+      <div class="fmeta"><div class="fname">${x.name}</div><div class="fdate">${done?fmtDate(done):"—"}</div></div></button>`;
   }).join('<div class="fline"></div>');
-  const touches=l.touches.length?l.touches.map(t=>`
+  // newest first; a touch without an answer can have the prospect's reply logged against it
+  const touches=l.touches.length?l.touches.map((t,i)=>({t,i})).reverse().map(({t,i})=>`
     <div class="tl-item"><div class="tl-dot"></div><div class="tl-body">
-      <div class="tl-top"><b>${t.task}</b><span class="tl-date">${fmtDate(t.date)}</span></div>
-      ${t.msg?`<div class="tl-msg">${t.msg}</div>`:""}
-      ${t.answer?`<div class="tl-ans">↳ ${t.answer}</div>`:""}</div></div>`).join(""):`<div class="desc"><i style="color:var(--faint)">No touches logged yet.</i></div>`;
+      <div class="tl-top"><b>${esc(t.task)}</b><span class="tl-date">${fmtDate(t.date)}</span></div>
+      ${t.msg?`<div class="tl-msg">${esc(t.msg)}</div>`:""}
+      ${t.answer?`<div class="tl-ans">↳ ${esc(t.answer)}${t.sentiment?` <span class="sent ${t.sentiment}">${t.sentiment}</span>`:""}</div>`
+        :`<div class="reply-slot" data-touch="${i}"><button class="ghost-btn reply-btn">↳ Log reply</button></div>`}</div></div>`).join(""):`<div class="desc"><i style="color:var(--faint)">No touches logged yet.</i></div>`;
+  const taskOpts=cur=>(cur&&!NEXT_TASKS.includes(cur)?[cur,...NEXT_TASKS]:NEXT_TASKS).map(x=>`<option ${x===cur?"selected":""}>${esc(x)}</option>`).join("");
+  const nextBox = l.deal!=="open" ? "" : l.next&&l.next.task
+    ? `<div class="next-box"><div style="min-width:0"><div class="nb-l">Next action</div>
+          <div class="next-edit"><select class="fin" id="nxTask">${taskOpts(l.next.task)}</select><input type="date" class="fin" id="nxDate" value="${l.next.date}"></div></div>
+        <div class="nb-r"><span class="due ${isOver(l.next.date)?'over':''}">${CAL}${fmtDue(l.next.date)}</span>
+        <button class="nb-done" id="ldDone">${CHECK} Log &amp; advance</button></div></div>`
+    : `<div class="next-box"><div><div class="nb-l">Next action</div><div class="nb-t" style="color:var(--pri-med)">None scheduled</div></div>
+        <div class="next-edit"><select class="fin" id="nxTask">${taskOpts("Ping")}</select><input type="date" class="fin" id="nxDate" value="${fISO(TODAY)}"><button class="nb-done" id="nxSet">Schedule</button></div></div>`;
+  const dealSel=`<select class="fin" id="ldDeal">${l.stage==="mql"?`<option value="won" ${l.deal==="won"?"selected":""}>Won</option>`:`<option value="open" ${l.deal==="open"?"selected":""}>Open</option>`}<option value="lost" ${l.deal==="lost"?"selected":""}>Lost</option></select>`;
   const dr=$("#drawer");
   dr.innerHTML=`
     <div class="dr-top">
@@ -948,37 +1117,54 @@ function openLead(id){
     <div class="dr-body">
       <div class="lead-id">
         <span class="ava" style="background:${users[l.owner].color};width:40px;height:40px;font-size:14px">${users[l.owner].init}</span>
-        <div><div class="dr-title" style="font-size:19px">${l.name}</div><div class="lead-sub">${l.title} · ${l.company} · ${l.loc}</div></div>
+        <div><div class="dr-title" style="font-size:19px">${esc(l.name)}</div><div class="lead-sub">${esc(l.title)} · ${esc(l.company)}${l.loc?" · "+esc(l.loc):""}</div></div>
         <a class="li-btn" title="LinkedIn">${LINK_ICO}</a>
       </div>
       ${dupOf(l).length?`<div class="dup-note">⚑ Same person is also an active lead under <b>${dupOf(l).join(', ')}</b> — coordinate messaging so profiles don't collide.</div>`:""}
-      ${l.next&&l.next.task?`<div class="next-box"><div><div class="nb-l">Next action</div><div class="nb-t">${l.next.task}</div></div>
-        <div class="nb-r"><span class="due ${isOver(l.next.date)?'over':''}">${CAL}${fmtDue(l.next.date)}</span>
-        <button class="nb-done" id="ldDone">${CHECK} Log &amp; advance</button></div></div>`:""}
+      ${nextBox}
       <div>
-        <div class="dr-sec-label">Funnel</div>
+        <div class="dr-sec-label">Funnel <span style="text-transform:none;letter-spacing:0;font-weight:600">· tap a stage to move the lead</span></div>
         <div class="funnel">${funnel}</div>
       </div>
       <div class="fields">
         <div class="field"><span class="k">Client</span><span class="v">${clChip(l.client)} ${client(l.client).name}</span></div>
         <div class="field"><span class="k">Profile</span><span class="v">${amb(l.ambassador)?amb(l.ambassador).name+" · "+amb(l.ambassador).role:"—"}</span></div>
         <div class="field"><span class="k">Owner (SDR)</span><span class="v"><span class="assignee-pill"><span class="ava sm" style="background:${users[l.owner].color}">${users[l.owner].init}</span>${users[l.owner].name}</span></span></div>
-        <div class="field"><span class="k">Source</span><span class="v">${l.source}</span></div>
-        <div class="field"><span class="k">Channel</span><span class="v">${l.channel}</span></div>
-        <div class="field"><span class="k">Industry</span><span class="v">${l.industry}</span></div>
+        <div class="field"><span class="k">Deal</span><span class="v">${dealSel}</span></div>
+        ${l.deal==="lost"?`<div class="field"><span class="k">Lost reason</span><span class="v"><select class="fin" id="ldLost">${(LOST_REASONS.includes(l.lost)?LOST_REASONS:[l.lost,...LOST_REASONS]).map(r=>`<option ${r===l.lost?"selected":""}>${esc(r)}</option>`).join("")}</select></span></div>`:""}
+        <div class="field"><span class="k">Source</span><span class="v">${esc(l.source)}</span></div>
+        <div class="field"><span class="k">Channel</span><span class="v">${esc(l.channel)}</span></div>
+        <div class="field"><span class="k">Industry</span><span class="v">${esc(l.industry)||"—"}</span></div>
         <div class="field"><span class="k">LG status</span><span class="v">${lgStatus[l.statusLG]||"—"}</span></div>
-        <div class="field"><span class="k">Strategy</span><span class="v">${l.strategy||"—"}</span></div>
-        ${l.deal==="lost"?`<div class="field"><span class="k">Lost reason</span><span class="v">${l.lost||"—"}</span></div>`:""}
+        <div class="field"><span class="k">Strategy</span><span class="v">${esc(l.strategy)||"—"}</span></div>
       </div>
-      ${l.details?`<div><div class="dr-sec-label">MQL details</div><div class="desc">${l.details}</div></div>`:""}
+      ${l.details?`<div><div class="dr-sec-label">MQL details</div><div class="desc">${esc(l.details)}</div></div>`:""}
       <div>
         <div class="dr-sec-label">Conversation</div>
         <div class="timeline">${touches}</div>
       </div>
-      ${l.comment?`<div><div class="dr-sec-label">Comment</div><div class="desc">${l.comment}</div></div>`:""}
+      ${l.comment?`<div><div class="dr-sec-label">Comment</div><div class="desc">${esc(l.comment)}</div></div>`:""}
     </div>`;
   dr.querySelector("#drClose").onclick=closeDrawer;
   const done=dr.querySelector("#ldDone");if(done)done.onclick=()=>advanceNext(l);
+  dr.querySelectorAll(".fstep").forEach(b=>b.onclick=()=>setStage(l,b.dataset.stage));
+  dr.querySelectorAll(".reply-slot").forEach(slot=>{
+    slot.querySelector(".reply-btn").onclick=()=>{
+      slot.innerHTML=`<div class="reply-form"><input class="fin" placeholder="What did they say?" aria-label="Reply text">
+        <select class="fin" aria-label="Sentiment"><option value="positive">Positive</option><option value="neutral" selected>Neutral</option><option value="negative">Negative</option></select>
+        <button class="nb-done">Save</button></div>`;
+      const inp=slot.querySelector("input"), sel=slot.querySelector("select");
+      const save=()=>{if(inp.value.trim())logReply(l,+slot.dataset.touch,inp.value.trim(),sel.value);};
+      slot.querySelector("button").onclick=save;
+      inp.onkeydown=e=>{if(e.key==="Enter")save();if(e.key==="Escape"){e.stopPropagation();openLead(l.id);}};
+      inp.focus();
+    };
+  });
+  const nxT=dr.querySelector("#nxTask"), nxD=dr.querySelector("#nxDate"), nxSet=dr.querySelector("#nxSet");
+  const saveNext=()=>{if(nxD.value){l.next={task:nxT.value,date:nxD.value};renderNav();render();openLead(l.id);}};
+  if(nxSet)nxSet.onclick=saveNext; else if(nxT){nxT.onchange=saveNext;nxD.onchange=saveNext;}
+  dr.querySelector("#ldDeal").onchange=e=>setDeal(l,e.target.value);
+  const lr=dr.querySelector("#ldLost");if(lr)lr.onchange=e=>{l.lost=e.target.value;render();};
   dr.classList.add("open");dr.setAttribute("aria-hidden","false");
   $("#scrim").classList.add("open");
 }
@@ -1007,7 +1193,7 @@ function renderBoard(c){
 function card(t){
   const cd=el("div","card"+(t.section==="done"?" is-done":""));
   cd.draggable=true;
-  cd.innerHTML=`<div class="ct"><span class="chk ${t.section==="done"?"done":""}">${CHECK}</span><span class="ctitle">${t.title}</span></div>
+  cd.innerHTML=`<div class="ct"><span class="chk ${t.section==="done"?"done":""}">${CHECK}</span><span class="ctitle">${esc(t.title)}</span></div>
     <div class="meta">${priPill(t.priority)}${subCount(t)}
       ${t.due?`<span class="due ${isOver(t.due)&&t.section!=="done"?"over":""}">${CAL}${fmtDue(t.due)}</span>`:""}
       <span class="spacer"></span>${ava(t.assignee,true)}</div>`;
@@ -1019,7 +1205,7 @@ function card(t){
 }
 function composer(secId){
   const w=el("div","composer");
-  w.innerHTML=`<textarea rows="2" placeholder="Task name…"></textarea><div class="row"><button class="save">Add task</button><button class="cancel">Cancel</button></div>`;
+  w.innerHTML=`<textarea rows="2" placeholder="Task name…"></textarea><div class="crow"><button class="save">Add task</button><button class="cancel">Cancel</button></div>`;
   const ta=w.querySelector("textarea");
   const add=()=>{const v=ta.value.trim();if(v){tasks.push({id:"n"+(seq++),project:state.view,section:secId,title:v,assignee:"alex",due:null,priority:"med",desc:"",subs:[]});}state.composeFor=secId;renderNav();render();};
   w.querySelector(".save").onclick=add;
@@ -1038,7 +1224,8 @@ function renderList(c){
     box.appendChild(el("div","sec-head",`<span class="cdot" style="background:${s.color}"></span>${s.name}<span class="n">${items.length}</span>`));
     items.forEach(t=>box.appendChild(listRow(t)));
     if(s.id!=="done"){const add=el("button","list-add",`${svg('<path d="M12 5v14M5 12h14"/>')}Add task`);
-      add.onclick=()=>{tasks.push({id:"n"+(seq++),project:state.view,section:s.id,title:"New task",assignee:"alex",due:null,priority:"med",desc:"",subs:[]});renderNav();render();};
+      add.onclick=()=>{const id="n"+(seq++);tasks.push({id,project:state.view,section:s.id,title:"New task",assignee:"alex",due:null,priority:"med",desc:"",subs:[]});renderNav();render();
+        openTask(id);const ti=$("#drawer .dr-title");if(ti){ti.focus();ti.select();}};
       box.appendChild(add);}
     wrap.appendChild(box);
   });
@@ -1047,7 +1234,7 @@ function renderList(c){
 function listRow(t){
   const r=el("div","row"+(t.section==="done"?" is-done":""));
   r.innerHTML=`<span class="chk ${t.section==="done"?"done":""}">${CHECK}</span>
-    <span class="rtitle">${t.title}</span>
+    <span class="rtitle">${esc(t.title)}</span>
     <span class="rmeta">${subCount(t)}
       ${t.due?`<span class="due ${isOver(t.due)&&t.section!=="done"?"over":""}">${CAL}${fmtDue(t.due)}</span>`:""}
       ${priPill(t.priority)}${ava(t.assignee,true)}</span>`;
@@ -1060,6 +1247,7 @@ function listRow(t){
 function planFor(pid){return plans[pid]||[];}
 function phaseDone(ph){return ph.subs.every(s=>s.done);}
 function phaseProgress(ph){const d=ph.subs.filter(s=>s.done).length;return {done:d,total:ph.subs.length,pct:Math.round(d/ph.subs.length*100)};}
+const pastPhase=ph=>ph.subs.filter(s=>!s.done&&s.due>ph.due);   // steps scheduled after their phase's deadline
 function phaseUnlocked(plan,i){return i===0||phaseDone(plan[i-1]);}
 function subById(plan,id){for(const ph of plan)for(const s of ph.subs)if(s.id===id)return s;return null;}
 function subActionable(plan,i,s){if(!phaseUnlocked(plan,i))return false; if(s.dependsOn){const d=subById(plan,s.dependsOn); if(d&&!d.done)return false;} return true;}
@@ -1090,7 +1278,7 @@ function renderPlan(c){
       <div class="ph-bar"><span style="width:${pr.pct}%"></span></div>
       <span class="ph-pct tnum">${pr.pct}%</span>
       <span class="ph-sub">${pr.done}/${pr.total}</span>
-      <span class="ph-due">${CAL}${fmtDate(ph.due)}</span>`;
+      <span class="ph-due ${pastPhase(ph).length&&!phaseDone(ph)?"late":""}" ${pastPhase(ph).length?`title="${pastPhase(ph).length} step(s) due after this phase's deadline"`:""}>${pastPhase(ph).length&&!phaseDone(ph)?"⚠ ":""}${CAL}${fmtDate(ph.due)}</span>`;
     row.querySelector(".ph-caret").onclick=()=>{collapsed?planCollapsed.delete(ph.id):planCollapsed.add(ph.id);render();};
     row.onclick=e=>{if(!e.target.closest(".ph-caret")){collapsed?planCollapsed.delete(ph.id):planCollapsed.add(ph.id);render();}};
     wrap.appendChild(row);
@@ -1100,9 +1288,9 @@ function renderPlan(c){
       const sr=el("div","subrow"+(s.done?" is-done":"")+((act||s.done)?"":" locked"));
       const box = s.done?`<span class="chk done">${CHECK}</span>` : act?`<span class="chk"></span>` : `<span class="sublock">${LOCK}</span>`;
       sr.innerHTML=`${box}<span class="sub-id">${s.id}</span>
-        <span class="sub-name">${s.name}</span>
+        <span class="sub-name">${esc(s.name)}</span>
         <span class="sub-meta">${s.priority==="high"?priPill("high"):""}
-          <span class="due ${isOver(s.due)&&!s.done?'over':''}">${CAL}${fmtDate(s.due)}</span>${ava(s.owner,true)}</span>`;
+          <span class="due ${(isOver(s.due)||s.due>ph.due)&&!s.done?'over':''}" ${s.due>ph.due?`title="Due after the phase deadline (${fmtDate(ph.due)})"`:""}>${CAL}${fmtDate(s.due)}</span>${ava(s.owner,true)}</span>`;
       const chk=sr.querySelector(".chk"); if(chk&&(act||s.done))chk.onclick=e=>{e.stopPropagation();toggleSub(pid,s);};
       sr.querySelector(".sub-name").onclick=()=>openPlanTask(pid,s.id);
       wrap.appendChild(sr);
@@ -1127,14 +1315,15 @@ function openPlanTask(pid,subId){
       <button class="icon-btn" id="drClose" aria-label="Close">${svg('<path d="M18 6 6 18M6 6l12 12"/>')}</button>
     </div>
     <div class="dr-body">
-      <div class="dr-title" style="font-size:19px"><span class="sub-id" style="font-size:14px">${s.id}</span> ${s.name}</div>
+      <div class="dr-title" style="font-size:19px"><span class="sub-id" style="font-size:14px">${s.id}</span> ${esc(s.name)}</div>
       <div class="fields">
         <div class="field"><span class="k">Status</span><span class="v"><span class="deal" style="color:${status[1]};background:var(--surface-2)">${status[0]}</span></span></div>
         <div class="field"><span class="k">Assignee</span><span class="v"><span class="assignee-pill">${ava(s.owner,true)}${users[s.owner].name}</span></span></div>
-        <div class="field"><span class="k">Deadline</span><span class="v">${fmtDate(s.due)}</span></div>
+        <div class="field"><span class="k">Deadline</span><span class="v">${fmtDate(s.due)}${s.due>ph.due&&!s.done?`<span class="due over">after phase deadline (${fmtDate(ph.due)})</span>`:""}</span></div>
         ${s.priority?`<div class="field"><span class="k">Priority</span><span class="v">${priPill(s.priority)}</span></div>`:""}
         <div class="field"><span class="k">Parent task</span><span class="v"><span class="ph-badge mini">${idx+1}</span> ${ph.name}</span></div>
-        <div class="field"><span class="k">Depends on</span><span class="v">${dep?`<span class="chk sm ${dep.done?'done':''}">${dep.done?CHECK:''}</span> ${dep.id} ${dep.name}`:"—"}</span></div>
+        <div class="field"><span class="k">Project</span><span class="v"><span class="proj-dot" style="width:11px;height:11px;border-radius:4px;background:${proj(pid).color};display:inline-block"></span> ${esc(proj(pid).name)}</span></div>
+        <div class="field"><span class="k">Depends on</span><span class="v">${dep?`<span class="chk sm ${dep.done?'done':''}">${dep.done?CHECK:''}</span> ${dep.id} ${esc(dep.name)}`:"—"}</span></div>
       </div>
       ${s.desc?`<div><div class="dr-sec-label">Description</div><div class="desc">${s.desc}</div></div>`:""}
       ${(!act&&!s.done)?`<div class="dup-note">🔒 Waiting on ${dep?`<b>${dep.id} ${dep.name}</b>`:"the previous phase"} before this can start.</div>`:""}
@@ -1146,22 +1335,33 @@ function openPlanTask(pid,subId){
 
 /* ---- Timeline (Gantt) with delay propagation ---- */
 function renderTimeline(c){
-  const pid=state.view, plan=planFor(pid);
-  const AXIS=new Date("2026-10-01T00:00:00"), AXIS_DAYS=36;      // Oct 1 .. Nov 5
+  const pid=state.view, plan=planFor(pid), p=proj(pid);
+  // Axis starts at the first scheduled step of the plan
+  const firstDue=plan.flatMap(ph=>ph.subs.map(s=>s.due)).sort()[0];
+  const AXIS=new Date(firstDue+"T00:00:00");
   const dn=ds=>Math.round((new Date(ds+"T00:00:00")-AXIS)/86400000);
   const dateAt=n=>{const d=new Date(AXIS);d.setDate(d.getDate()+n);return d;};
   const fmtN=n=>dateAt(n).toLocaleDateString("en-US",{month:"short",day:"numeric"});
-  const DEADLINE=dn("2026-10-30");
-  // baseline: lay phases back-to-back so a slip propagates cleanly
-  const dur=ph=>{const ds=ph.subs.map(s=>dn(s.due));return Math.max(...ds)-Math.min(...ds);};
-  let s=0; const base=plan.map(ph=>{const d=dur(ph);const o={ph,start:s,end:s+d};s=s+d+1;return o;});
+  const DEADLINE=dn(p.deadline||plan[plan.length-1].due);
+  // Baseline from the REAL plan dates: each phase spans from the day after the previous phase's
+  // deadline to its own. A step scheduled past its phase deadline lengthens that phase, and the
+  // overrun cascades to every later phase (it isn't silently absorbed).
+  const base=[]; plan.forEach((ph,i)=>{
+    const pStart=i===0?Math.min(...ph.subs.map(s=>dn(s.due))):dn(plan[i-1].due)+1;
+    const pDur=Math.max(0,dn(ph.due)-pStart);
+    const overrun=Math.max(0,Math.max(...ph.subs.filter(s=>!s.done).map(s=>dn(s.due)))-dn(ph.due));
+    const start=i===0?pStart:Math.max(pStart,base[i-1].end+1);
+    base.push({ph,start,end:start+pDur+overrun});
+  });
   // effective schedule: a slip on the chosen phase pushes every later phase
   const delay={}; if(state.delayDays>0) delay[state.delayPhase]=state.delayDays;
   const eff=[]; let prev=-1;
   base.forEach((b,i)=>{const d=b.end-b.start; const start=i===0?b.start:Math.max(b.start,prev+1); const end=start+d+(delay[b.ph.id]||0); eff.push({start,end}); prev=end;});
   const baseFinish=base[base.length-1].end, effFinish=eff[eff.length-1].end, slip=effFinish-baseFinish;
   const overBy=effFinish-DEADLINE;
+  const AXIS_DAYS=Math.max(effFinish,DEADLINE)+5;                  // stretches when a slip pushes past the deadline
   const L=x=>x/AXIS_DAYS*100, W=(a,z)=>(z-a+1)/AXIS_DAYS*100;
+  const dlLabel=fmtN(DEADLINE);
 
   const wrap=el("div","tl");
   // control panel
@@ -1171,17 +1371,20 @@ function renderTimeline(c){
     <span class="stepper"><button id="tlMinus" aria-label="less">−</button><span class="tnum" id="tlDays">${state.delayDays}d</span><button id="tlPlus" aria-label="more">+</button></span>
     ${state.delayDays>0?`<button class="tl-reset" id="tlReset">Reset</button>`:""}
     <span class="spacer"></span>
-    <span class="dl-chip ${overBy>0?'late':'ok'}">Finish ${fmtN(effFinish)} · ${overBy>0?`${overBy}d over deadline`:`${-overBy}d slack to Oct 30`}</span>`;
+    <span class="dl-chip ${overBy>0?'late':'ok'}">Finish ${fmtN(effFinish)} · ${overBy>0?`${overBy}d over deadline`:overBy===0?`on the ${dlLabel} deadline — no slack`:`${-overBy}d slack to ${dlLabel}`}</span>`;
   wrap.appendChild(ctrl);
   if(slip>0){
     const dphase=plan.find(p=>p.id===state.delayPhase);
-    wrap.appendChild(el("div","tl-banner"+(overBy>0?" bad":""),`⚠ <b>${dphase.name}</b> slips ${state.delayDays} day${state.delayDays>1?"s":""} → later phases shift. Projected finish <b>${fmtN(baseFinish)} → ${fmtN(effFinish)}</b> <span class="slip-tag">+${slip}d</span>${overBy>0?` — <b>misses the Oct 30 deadline by ${overBy}d.</b>`:` — still within the Oct 30 deadline.`}`));
+    wrap.appendChild(el("div","tl-banner"+(overBy>0?" bad":""),`⚠ <b>${dphase.name}</b> slips ${state.delayDays} day${state.delayDays>1?"s":""} → later phases shift. Projected finish <b>${fmtN(baseFinish)} → ${fmtN(effFinish)}</b> <span class="slip-tag">+${slip}d</span>${overBy>0?` — <b>misses the ${dlLabel} deadline by ${overBy}d.</b>`:` — still within the ${dlLabel} deadline.`}`));
+  }else if(overBy>=0){
+    wrap.appendChild(el("div","tl-banner"+(overBy>0?" bad":""),overBy>0?`⚠ The current plan already finishes <b>${overBy}d after</b> the ${dlLabel} deadline.`:`The plan finishes exactly on the <b>${dlLabel}</b> deadline — <b>any slip</b> in any phase makes it late. Try the simulator.`));
   }
   // gantt
   const g=el("div","tl-grid");
   const dlLine=n=>`<span class="tl-dl" style="left:${L(n)}%"></span>`;
   const head=el("div","tl-row tl-head");
-  head.innerHTML=`<div class="tl-label"></div><div class="tl-track">${[0,5,10,15,20,25,30,35].map(n=>`<span class="tl-tick" style="left:${L(n)}%">${fmtN(n)}</span>`).join("")}${dlLine(DEADLINE)}<span class="tl-dl-cap" style="left:${L(DEADLINE)}%">Deadline</span></div>`;
+  const ticks=[];for(let n=0;n<AXIS_DAYS-2;n+=AXIS_DAYS>45?7:5)ticks.push(n);
+  head.innerHTML=`<div class="tl-label"></div><div class="tl-track">${ticks.map(n=>`<span class="tl-tick" style="left:${L(n)}%">${fmtN(n)}</span>`).join("")}${dlLine(DEADLINE)}<span class="tl-dl-cap" style="left:${L(DEADLINE)}%">Deadline</span></div>`;
   g.appendChild(head);
   plan.forEach((ph,i)=>{
     const b=base[i], e=eff[i];
@@ -1230,8 +1433,11 @@ function toggleDone(t){
 /* ---------- Drawer ---------- */
 function openTask(id){
   const t=tasks.find(x=>x.id===id);if(!t)return;
-  state.selected=id;
-  const p=proj(t.project),s=sec(t.section),u=users[t.assignee];
+  state.selected=id;state.selectedLead=null;state.selectedPlanSub=null;
+  const p=proj(t.project);
+  if(!t.comments)t.comments=[];
+  const opts=(list,cur)=>list.map(([v,l])=>`<option value="${v}" ${v===cur?"selected":""}>${esc(l)}</option>`).join("");
+  const comments=t.comments.map(c=>`<div class="cmt">${ava(c.u,true)}<div><div class="cmt-h">${users[c.u].name}<small>${fmtDate(c.t)}</small></div><div class="cmt-t">${esc(c.txt)}</div></div></div>`).join("");
   const dr=$("#drawer");
   dr.innerHTML=`
     <div class="dr-top">
@@ -1240,13 +1446,13 @@ function openTask(id){
       <button class="icon-btn" id="drClose" aria-label="Close">${svg('<path d="M18 6 6 18M6 6l12 12"/>')}</button>
     </div>
     <div class="dr-body">
-      <input class="dr-title" value="${t.title.replace(/"/g,'&quot;')}">
+      <input class="dr-title" value="${esc(t.title)}" aria-label="Task name">
       <div class="fields">
-        <div class="field"><span class="k">${svg('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>')}Assignee</span><span class="v"><span class="assignee-pill">${ava(t.assignee,true)}${u.name}</span></span></div>
-        <div class="field"><span class="k">${CAL}Due date</span><span class="v ${isOver(t.due)&&t.section!=="done"?"":""}">${t.due?new Date(t.due+"T00:00:00").toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"}):"—"}</span></div>
-        <div class="field"><span class="k">${svg('<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22V3"/>')}Priority</span><span class="v">${priPill(t.priority)}</span></div>
-        <div class="field"><span class="k">${svg('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/>')}Project</span><span class="v"><span class="proj-dot" style="width:11px;height:11px;border-radius:4px;background:${p.color};display:inline-block"></span> ${p.name}</span></div>
-        <div class="field"><span class="k">${svg('<path d="M4 6h16M4 12h16M4 18h10"/>')}Status</span><span class="v">${s.name}</span></div>
+        <div class="field"><span class="k">${svg('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>')}Assignee</span><span class="v">${ava(t.assignee,true)}<select class="fin" id="tAssignee">${opts(Object.entries(users).map(([k,u])=>[k,u.name]),t.assignee)}</select></span></div>
+        <div class="field"><span class="k">${CAL}Due date</span><span class="v"><input type="date" class="fin" id="tDue" value="${t.due||""}">${t.due&&isOver(t.due)&&t.section!=="done"?`<span class="due over">${fmtDue(t.due)}</span>`:""}</span></div>
+        <div class="field"><span class="k">${svg('<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22V3"/>')}Priority</span><span class="v"><select class="fin" id="tPri">${opts([["high","High"],["med","Medium"],["low","Low"]],t.priority)}</select></span></div>
+        <div class="field"><span class="k">${svg('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/>')}Project</span><span class="v"><span class="proj-dot" style="width:11px;height:11px;border-radius:4px;background:${p.color};display:inline-block"></span> ${esc(p.name)}</span></div>
+        <div class="field"><span class="k">${svg('<path d="M4 6h16M4 12h16M4 18h10"/>')}Status</span><span class="v"><select class="fin" id="tSec">${opts(sections.map(x=>[x.id,x.name]),t.section)}</select></span></div>
       </div>
       <div>
         <div class="dr-sec-label">Description</div>
@@ -1257,8 +1463,9 @@ function openTask(id){
         <div id="drSubs">${t.subs.length?"":"<div class='desc'><i style='color:var(--faint)'>No subtasks.</i></div>"}</div>
       </div>
       <div>
-        <div class="dr-sec-label">Comments</div>
-        <div class="cbox">${ava("alex",true)}<input placeholder="Write a comment…"></div>
+        <div class="dr-sec-label">Comments ${t.comments.length?`· ${t.comments.length}`:""}</div>
+        ${comments}
+        <div class="cbox">${ava("alex",true)}<input id="tCmt" placeholder="Write a comment… (Enter to post)"></div>
       </div>
     </div>`;
   const subsBox=dr.querySelector("#drSubs");
@@ -1270,19 +1477,87 @@ function openTask(id){
   });
   dr.querySelector("#drClose").onclick=closeDrawer;
   dr.querySelector("#drMark").onclick=()=>toggleDone(t);
-  dr.querySelector(".dr-title").onchange=e=>{t.title=e.target.value;render();};
+  dr.querySelector(".dr-title").onchange=e=>{const v=e.target.value.trim();if(v){t.title=v;render();}else e.target.value=t.title;};
+  const upd=fn=>e=>{fn(e.target.value);renderNav();render();openTask(id);};
+  dr.querySelector("#tAssignee").onchange=upd(v=>t.assignee=v);
+  dr.querySelector("#tDue").onchange=upd(v=>t.due=v||null);
+  dr.querySelector("#tPri").onchange=upd(v=>t.priority=v);
+  dr.querySelector("#tSec").onchange=upd(v=>{if(v==="done"&&t.section!=="done")t._prev=t.section;t.section=v;});
+  const ci=dr.querySelector("#tCmt");
+  ci.onkeydown=e=>{if(e.key==="Enter"&&ci.value.trim()){t.comments.push({u:"alex",t:fISO(TODAY),txt:ci.value.trim()});openTask(id);const n=$("#tCmt");if(n)n.focus();}};
   dr.classList.add("open");dr.setAttribute("aria-hidden","false");
   $("#scrim").classList.add("open");
 }
-function closeDrawer(){state.selected=null;state.selectedLead=null;state.selectedPlanSub=null;$("#drawer").classList.remove("open");$("#drawer").setAttribute("aria-hidden","true");$("#scrim").classList.remove("open");}
+function closeDrawer(){state.selected=null;state.selectedLead=null;state.selectedPlanSub=null;$("#drawer").classList.remove("open");$("#drawer").setAttribute("aria-hidden","true");$("#scrim").classList.remove("open");closeModal();}
 
 /* ---------- wire top bar ---------- */
 // (the view-switcher buttons are built per-project by buildSeg)
 $("#addBtn").onclick=()=>{
   const p=proj(state.view);
-  if(p&&!p.plan){state.layout="board";buildSeg(p);state.composeFor="todo";render();}
-  else{go("web");state.composeFor="todo";render();}
+  if(state.view==="crm") return openLeadModal();
+  if(p&&!p.plan&&state.layout==="board"){state.composeFor="todo";render();return;}  // inline composer where it's already visible
+  openTaskModal();
 };
+
+/* ---------- Create modals (task from anywhere, lead from the CRM) ---------- */
+function openModal(html,onSubmit){
+  const m=$("#modal");m.innerHTML=`<form novalidate>${html}<div class="mact"><button type="button" class="ghost-btn" id="mCancel">Cancel</button><button type="submit" class="btn-add">Create</button></div></form>`;
+  const f=m.querySelector("form");
+  f.onsubmit=e=>{e.preventDefault();if(onSubmit(new FormData(f))!==false)closeModal();};
+  m.querySelector("#mCancel").onclick=closeModal;
+  m.classList.add("open");m.setAttribute("aria-hidden","false");$("#scrim").classList.add("open");
+  const first=f.querySelector("input");if(first)first.focus();
+  return f;
+}
+function closeModal(){const m=$("#modal");if(!m.classList.contains("open"))return;m.classList.remove("open");m.setAttribute("aria-hidden","true");
+  if(!$("#drawer").classList.contains("open"))$("#scrim").classList.remove("open");}
+const userOpts=cur=>Object.entries(users).map(([k,u])=>`<option value="${k}" ${k===cur?"selected":""}>${u.name}</option>`).join("");
+function openTaskModal(){
+  const cur=proj(state.view);
+  // Regular projects take the task directly; phased projects take it as a subtask of a chosen phase
+  const dest=[...projects.filter(p=>!p.plan),...projects.filter(p=>p.plan)].map(p=>p.plan
+    ? `<optgroup label="${esc(p.name)}">${planFor(p.id).map((ph,i)=>`<option value="${p.id}|${ph.id}" ${cur&&cur.id===p.id&&phaseUnlocked(planFor(p.id),i)&&!phaseDone(ph)?"selected":""}>${i+1}. ${esc(ph.name)}</option>`).join("")}</optgroup>`
+    : `<option value="${p.id}" ${cur&&cur.id===p.id?"selected":""}>${esc(p.name)}</option>`).join("");
+  const f=openModal(`<h2>New task</h2>
+    <label class="mfield"><span>Task name</span><input class="fin" name="title" placeholder="What needs doing?" required></label>
+    <label class="mfield"><span>Project</span><select class="fin" name="dest">${dest}</select></label>
+    <div class="mgrid">
+      <label class="mfield"><span>Assignee</span><select class="fin" name="who">${userOpts("alex")}</select></label>
+      <label class="mfield"><span>Due date</span><input class="fin" type="date" name="due"></label>
+      <label class="mfield"><span>Priority</span><select class="fin" name="pri"><option value="high">High</option><option value="med" selected>Medium</option><option value="low">Low</option></select></label>
+    </div>`, fd=>{
+    const title=String(fd.get("title")||"").trim(); if(!title){f.querySelector("[name=title]").focus();return false;}
+    const [pid,phid]=String(fd.get("dest")).split("|"), due=fd.get("due")||null, who=fd.get("who"), pri=fd.get("pri");
+    if(phid){const plan=planFor(pid),i=plan.findIndex(x=>x.id===phid),ph=plan[i];
+      ph.subs.push({id:`${i+1}.${ph.subs.length+1}`,name:title,due:due||ph.due,owner:who,done:false,priority:pri==="high"?"high":undefined});}
+    else tasks.push({id:"n"+(seq++),project:pid,section:"todo",title,assignee:who,due,priority:pri,desc:"",subs:[]});
+    renderNav();render();
+    toast(`Added “${esc(title)}” to ${esc(proj(pid).name)}${who==="alex"?" · it's in My Tasks":""}`);
+  });
+}
+function openLeadModal(){
+  const scope=state.crmScope==="all"?clients[0].id:state.crmScope;
+  const ambOpts=cid=>ambassadors.filter(a=>a.client===cid).map(a=>`<option value="${a.id}">${esc(a.name)} · ${esc(a.role)}</option>`).join("");
+  const f=openModal(`<h2>New lead</h2>
+    <label class="mfield"><span>Full name</span><input class="fin" name="name" placeholder="e.g. Iryna Koval" required></label>
+    <div class="mgrid">
+      <label class="mfield"><span>Title</span><input class="fin" name="title" placeholder="Head of Growth"></label>
+      <label class="mfield"><span>Company</span><input class="fin" name="company"></label>
+      <label class="mfield"><span>Client</span><select class="fin" name="client">${clients.map(c=>`<option value="${c.id}" ${c.id===scope?"selected":""}>${esc(c.name)}</option>`).join("")}</select></label>
+      <label class="mfield"><span>Profile</span><select class="fin" name="amb">${ambOpts(scope)}</select></label>
+      <label class="mfield"><span>Owner (SDR)</span><select class="fin" name="owner">${userOpts("karina")}</select></label>
+      <label class="mfield"><span>Location</span><input class="fin" name="loc" placeholder="Kyiv, UA"></label>
+    </div>`, fd=>{
+    const name=String(fd.get("name")||"").trim(); if(!name){f.querySelector("[name=name]").focus();return false;}
+    const l={id:"L"+(seq++),client:fd.get("client"),ambassador:fd.get("amb"),name,title:String(fd.get("title")||"").trim()||"—",company:String(fd.get("company")||"").trim()||"—",
+      loc:String(fd.get("loc")||"").trim(),industry:client(fd.get("client")).industry.split(" / ")[0],source:"LinkedIn",channel:"LinkedIn",owner:fd.get("owner"),
+      stage:"connecting",statusLG:"request_sent",deal:"open",dates:{},next:{date:fISO(TODAY),task:"Connection request"},strategy:"General ICP pains",touches:[],comment:""};
+    leads.push(l);renderNav();render();
+    const d=dupOf(l);
+    toast(`Added ${esc(name)} to ${esc(client(l.client).short)} · Connecting${d.length?` — ⚑ also a lead under ${esc(d.join(", "))}`:""}`);
+  });
+  const cs=f.querySelector("[name=client]");cs.onchange=()=>{f.querySelector("[name=amb]").innerHTML=ambOpts(cs.value);};
+}
 $("#menuBtn").onclick=()=>$("#sidebar").classList.toggle("open");
 $("#scrim").onclick=()=>{closeDrawer();$("#sidebar").classList.remove("open");};
 const SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
@@ -1294,10 +1569,15 @@ function effectiveDark(){
 }
 function syncThemeIcon(){ $("#themeIco").innerHTML = effectiveDark()?SUN:MOON; }
 $("#themeBtn").onclick=()=>{
-  document.documentElement.setAttribute("data-theme", effectiveDark()?"light":"dark");
+  const next=effectiveDark()?"light":"dark";
+  document.documentElement.setAttribute("data-theme", next);
+  try{localStorage.setItem("chameleon-theme",next);}catch(e){}
   syncThemeIcon();
 };
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
+try{const saved=localStorage.getItem("chameleon-theme");if(saved==="light"||saved==="dark")document.documentElement.setAttribute("data-theme",saved);}catch(e){}
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){if($("#modal").classList.contains("open"))closeModal();else closeDrawer();}});
+// Sidebar links are <a> without href — make them keyboard-operable
+$("#nav").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches("a")){e.preventDefault();e.target.click();}});
 
 /* ---------- boot ---------- */
 renderNav();go("mytasks");syncThemeIcon();
